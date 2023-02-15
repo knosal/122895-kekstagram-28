@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Вячеслав Кносаль](https://up.htmlacademy.ru/javascript/28/user/122895).
-* Наставник: `Неизвестно`.
+* Наставник: [Павел Нюкало](https://htmlacademy.ru/profile/nyukalopavel)..
 
 ---
 
