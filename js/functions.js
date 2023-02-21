@@ -14,7 +14,7 @@ checkingLengthstring('проверяемая строка', 10); // Резуль
 const checkingPalidrome = function (palidrome) {
   const withoutSpaces = palidrome.replaceAll(' ', '').toLowerCase();
   const reversePalidrome = withoutSpaces.split('').reverse().join('');
-  return withoutSpaces === reversePalidrome ? 'true - строка является палиндромом' : 'false - это не палиндром';
+  return withoutSpaces === reversePalidrome;
 };
 
 checkingPalidrome('топот'); // Результат: true - строка является палиндромом
@@ -34,7 +34,7 @@ const extractingNumbers = function (stringName) {
     g - искать все совпадения данного выражения в строке вместо того, чтобы возвращать только первый
    '' - убрать пробелы
   */
-  return (isNaN(stringName)) ? 'Результат: NaN' : `Результат: число ${stringName}`;
+  return stringName;
 };
 
 extractingNumbers('2023 год'); // Результат: число 2023
@@ -56,7 +56,7 @@ const addCharacters = function (sourceString, minLenght, сharacters) {
       sourceString = сharacters.slice(0, minLenght - sourceString.length) + sourceString;
     }
   }
-  return `Результат: строка ${sourceString}`;
+  return sourceString;
 };
 
 addCharacters('1', 2, '0'); // Результат: строка '01'
