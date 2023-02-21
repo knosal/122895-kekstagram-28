@@ -2,7 +2,7 @@
 1 Функция для проверки длины строки.
 //Она нам пригодится для валидации формы.
 */
-const checkingLengthstring = (checkedString, evaluationСriteria) => checkedString.length <= evaluationСriteria ? 'true - строка проходит по длине' : 'false — строка не проходит';
+const checkingLengthstring = (checkedString, evaluationСriteria) => checkedString.length <= evaluationСriteria;
 
 checkingLengthstring('проверяемая строка', 20); // Результат: true - строка проходит по длине
 checkingLengthstring('проверяемая строка', 18); // Результат: true - строка проходит по длине
