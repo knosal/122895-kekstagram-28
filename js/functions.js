@@ -12,8 +12,13 @@ checkingLengthstring('проверяемая строка', 10); // Резуль
 2 Функция для проверки, является ли строка палиндромом.
 */
 const checkingPalidrome = function (palidrome) {
-  const withoutSpaces = palidrome.replaceAll(' ', '').toLowerCase();
-  const reversePalidrome = withoutSpaces.split('').reverse().join('');
+  const withoutSpaces = palidrome
+    .replaceAll(' ', '')
+    .toLowerCase();
+  const reversePalidrome = withoutSpaces
+    .split('')
+    .reverse()
+    .join('');
   return withoutSpaces === reversePalidrome;
 };
 
