@@ -122,4 +122,5 @@ const createPublishedPhoto = () => {
   };
 };
 
-const similarPhotos = Array.from({ length: PHOTOS_OBJECTS_COUNT }, createPublishedPhoto);
+//const similarPhotos = Array.from({ length: PHOTOS_OBJECTS_COUNT }, createPublishedPhoto);
+createPublishedPhoto();
