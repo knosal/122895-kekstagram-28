@@ -85,7 +85,7 @@ const createRandomIdFromRange = (min, max) => {
 
   return function () {
     let currentValue = getGeneraRandomlId(min, max);
-    if (previousValues.length === (max - min + 1)) {
+    if (previousValues.length >= (max - min + 1)) {
       return null;
     }
     // проверка на уникальность элементов в массиве в цикле
