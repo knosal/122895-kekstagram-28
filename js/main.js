@@ -1,9 +1,6 @@
 /*---------КОНСТАНТЫ-----------*/
-//const PHOTOS_OBJECTS_COUNT = 25;
-
-/*---------МАССИВЫ-----------*/
 //Сообщения для комментария
-const messagesForComments = [
+const MESSAGES_COMMENTS = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -12,8 +9,9 @@ const messagesForComments = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
   'Имена авторов также должны быть случайными. Набор имён для комментаторов составьте сами. Подставляйте случайное имя в поле name.'
 ];
+
 //Описание фотографии для комментария
-const descriptionsForComments = [
+const DESCRIPTIONS_COMMENTS = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -22,8 +20,9 @@ const descriptionsForComments = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
   'Имена авторов также должны быть случайными. Набор имён для комментаторов составьте сами. Подставляйте случайное имя в поле name.'
 ];
+
 //Имена пользователей для комментария
-const namesForComments = [
+const NAMES_COMMENTS = [
   'Иван',
   'Хуан Себастьян',
   'Мария',
@@ -51,6 +50,18 @@ const namesForComments = [
   'Антон',
 ];
 
+/*---------МАГИЧЕСКИЕ ЗНАЧЕНИЯ-----------*/
+const PHOTOS_OBJECTS_COUNT = 25;
+
+const MV_STARTING_VALUE_PHOTOS = 1;
+const MV_FINAL_VALUE_PHOTOS = 25;
+
+const MV_STARTING_VALUE_LIKES = 15;
+const MV_FINAL_VALUE_LIKES = 200;
+
+const MV_STARTING_VALUE_AVATARS = 1;
+const MV_FINAL_VALUE_AVATARS = 6;
+
 /*---------ФУНКЦИИ-----------*/
 //Получение уникальных ID
 const getGeneraRandomlId = (min, max) => {
@@ -65,17 +76,17 @@ const getGeneraRandomlId = (min, max) => {
   const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
   const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
 
-  return Math.floor(Math.random() * (upper - lower + 1) + lower);
+  return Math.floor(Math.random() * (upper - lower + 1)) + lower;
 };
 
 //Получениеслучайных ID из указанного диапазона
-const createRandomIdFromRangeGenerator = (min, max) => {
+const createRandomIdFromRange = (min, max) => {
   const previousValues = [];
 
   return function () {
     let currentValue = getGeneraRandomlId(min, max);
-    if (previousValues.length >= (max - min + 1)) {
-      return `Перебраны все числа из диапазона от ' + ${min} + ' до ' + ${max}`;
+    if (previousValues.length === (max - min + 1)) {
+      return null;
     }
     // проверка на уникальность элементов в массиве в цикле
     //определяет, содержит ли массив определенное значение среди своих записей, возвращая true или false при необходимости.
@@ -87,40 +98,37 @@ const createRandomIdFromRangeGenerator = (min, max) => {
   };
 };
 
-//Конкатенация адреса, генерируемого ID и расширения
-const concatenatePathIdExtension = (path, id, extension) => path + id + extension;
-
 //Поиск случайного элемента в переданном массиве. (декомпозиция)
 const getRandomArrayElement = (elements) => elements[getGeneraRandomlId(0, elements.length - 1)];
 
-
 /*---------ВЫЗОВ ФУНКЦИИ-----------*/
 //идентификатор опубликованной фотографии
-const generatePhotosId = createRandomIdFromRangeGenerator(1, 25);
+const generatePhotosId = createRandomIdFromRange(MV_STARTING_VALUE_PHOTOS, MV_FINAL_VALUE_PHOTOS);
 generatePhotosId();
 //количество лайков, поставленных фотографии
-const generateLikes = createRandomIdFromRangeGenerator(15, 200);
+const generateLikes = createRandomIdFromRange(MV_STARTING_VALUE_LIKES, MV_FINAL_VALUE_LIKES);
 generateLikes();
+
 //Случайная аватарка для комментариев
-const generateAvatars = createRandomIdFromRangeGenerator(1, 6);
+const generateAvatars = createRandomIdFromRange(MV_STARTING_VALUE_AVATARS, MV_FINAL_VALUE_AVATARS);
 generateAvatars();
 
 /*---------СОЗДАНИЕ ОБЪЕКТА-----------*/
 const createPublishedPhoto = () => {
-  const PhotoId = generatePhotosId();
+  const photoId = generatePhotosId();
   return {
-    id: PhotoId,
-    url: concatenatePathIdExtension('photos/', PhotoId, '.jpg'),
-    description: getRandomArrayElement(descriptionsForComments),
+    id: photoId,
+    url: `photos/${photoId}.jpg`,
+    description: getRandomArrayElement(DESCRIPTIONS_COMMENTS),
     likes: generateLikes(),
     comments: [{
-      id: PhotoId,
-      avatar: concatenatePathIdExtension('img/avatar-', generateAvatars(), '.svg'),
-      message: getRandomArrayElement(messagesForComments),
-      name: getRandomArrayElement(namesForComments),
+      id: photoId,
+      avatar: `img/avatar-${generateAvatars()}.svg`,
+      message: getRandomArrayElement(MESSAGES_COMMENTS),
+      name: getRandomArrayElement(NAMES_COMMENTS),
     }],
   };
 };
 
-//const similarPhotos = Array.from({ length: PHOTOS_OBJECTS_COUNT }, createPublishedPhoto);
-createPublishedPhoto();
+const similarPhotos = Array.from({ length: PHOTOS_OBJECTS_COUNT }, createPublishedPhoto);
+similarPhotos();
