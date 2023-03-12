@@ -1,3 +1,3 @@
-import { creatingPhotos } from './setup.js';
+import { getPthotos } from './setup.js';
 
-creatingPhotos();
+getPthotos();
