@@ -71,7 +71,9 @@ const createPublishedPhoto = (photoId) => ({
   comments: Array.from({ length: getGeneraRandomId(0, COMMENTS_VALUE) }, createComment),
 });
 
-export const getPhotos = () =>
+const getPhotos = () =>
   Array.from({ length: PHOTOS_OBJECTS_COUNT }, (_, pictureIndex) =>
     createPublishedPhoto(pictureIndex + 1)
   );
+
+export { getPhotos };
