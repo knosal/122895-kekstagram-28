@@ -1,22 +1,57 @@
 
-import { isEscapeKey } from './util.js';
-import './thumbnail.js';
+import { isEnterKey, isEscapeKey } from './util.js';
+import { createTemplateList, clearTemplateList } from './thumbnail.js';
 
-const userModalElement = document.querySelector('.big-picture');
-//const userModalOpenElement = document.querySelectorAll('.picture');
-const userModalCloseElement = userModalElement.querySelector('.big-picture__cancel');
-/*
-userModalOpenElement.addEventListener('click', () => {
-  userModalElement.classList.remove('hidden');
-});
-*/
-document.addEventListener('keydown', (evt) => {
+const thumbnailModalElement = document.querySelector('.big-picture');
+const containerBody = document.querySelector('body');
+const thumbnailModalOpen = document.querySelectorAll('.picture');
+const thumbnailModalClose = thumbnailModalElement.querySelector('.big-picture__cancel');
+
+// Функция закрытия окна при нажатии на Esc
+const onModalEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    userModalElement.classList.add('hidden');
+    closeThumbnailModal();
+  }
+};
+
+// Функция открытия окна при нажатии фото
+function openThumbnailModal() {
+  thumbnailModalElement.classList.remove('hidden');
+  containerBody.classList.add('modal-open');
+  createTemplateList();
+  document.addEventListener('keydown', onModalEscKeydown);
+}
+
+// Функция очистки обрабочтика
+function closeThumbnailModal() {
+  thumbnailModalElement.classList.add('hidden');
+  clearTemplateList();
+  document.removeEventListener('keydown', onModalEscKeydown);
+}
+
+//Обработчик открытия модального окна для каждого изображения
+for (let i = 0; i < thumbnailModalOpen.length; i++) {
+  thumbnailModalOpen[i].addEventListener('click', () => {
+    openThumbnailModal();
+  });
+}
+
+//Обработчик открытия модального окна
+thumbnailModalOpen.addEventListener('keydown', (evt) => {
+  if (isEnterKey(evt)) {
+    openThumbnailModal();
   }
 });
 
-userModalCloseElement.addEventListener('click', () => {
-  userModalElement.classList.add('hidden');
+//Обработчик закрытия модального окна
+thumbnailModalClose.addEventListener('click', () => {
+  closeThumbnailModal();
+});
+
+//Обработчик закрытия модального окна по клавише Enter
+thumbnailModalClose.addEventListener('keydown', (evt) => {
+  if (isEnterKey(evt)) {
+    closeThumbnailModal();
+  }
 });
