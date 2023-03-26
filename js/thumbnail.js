@@ -1,25 +1,48 @@
 import { getPhotos } from './setup.js';
 
-const createPhoto = () => {
-  const imageContainerElement = document.querySelector('.pictures'); // секция для отображения фотографий
-  const templateFragment = document.querySelector('#picture')
-    .content
-    .querySelector('.picture');
+const thumbnailGalleryElement = document.querySelector('.pictures'); // секция для отображения фотографий
+const templateFragment = document.querySelector('#picture')
+  .content
+  .querySelector('.picture');
+const createTemplates = getPhotos(); //массив генерируемых фотографий
+//const thumbnailModalElement = document.querySelector('.big-picture__preview');
 
-  const createPhotos = getPhotos(); //массив генерируемых фотографий
-  const fragment = document.createDocumentFragment();
+// Функция отрисовки фотографий в галлереи
+const createTemplateList = () => {
+  const listFragment = document.createDocumentFragment();
 
-  createPhotos.forEach(({ url, description, likes, comments }) => {
-    const photoElement = templateFragment.cloneNode(true);
-    photoElement.querySelector('.picture__img').src = url;
-    photoElement.querySelector('.picture__img').tabIndex = '0';
-    photoElement.querySelector('.picture__img').alt = description;
-    photoElement.querySelector('.picture__likes').textContent = likes;
-    photoElement.querySelector('.picture__comments').textContent = comments.length;
-    fragment.append(photoElement);
+  createTemplates.forEach(({ url, description, likes, comments }) => {
+    const templateElement = templateFragment.cloneNode(true);
+    templateElement.querySelector('.picture__img').src = url;
+    templateElement.querySelector('.picture__img').tabIndex = '0';
+    templateElement.querySelector('.picture__img').alt = description;
+    templateElement.querySelector('.picture__likes').textContent = likes;
+    templateElement.querySelector('.picture__comments').textContent = comments.length;
+    listFragment.append(templateElement);
   });
 
-  return imageContainerElement.append(fragment);
+  thumbnailGalleryElement.append(listFragment);
+};
+/*
+// Функция отрисовки фотографий в модальном окне
+const createTemplateListModal = () => {
+  const listFragmentModal = document.createDocumentFragment();
+
+  createTemplates.forEach(({ url, description, likes, comments }) => {
+    const templateModalElement = templateFragment.cloneNode(true);
+    templateModalElement.querySelector('.picture__img').src = url;
+    templateModalElement.querySelector('.picture__img').alt = description;
+    templateModalElement.querySelector('.picture__likes').textContent = likes;
+    templateModalElement.querySelector('.picture__comments').textContent = comments.length;
+    listFragmentModal.append(templateModalElement);
+  });
+
+  thumbnailModalElement.append(listFragmentModal);
+};
+*/
+// Функция очистки отрисовки фотографий в модальном окне
+const clearTemplateList = () => {
+  //imageModalElement.innerHTML = '';
 };
 
-export { createPhoto };
+export { createTemplateList, clearTemplateList };
