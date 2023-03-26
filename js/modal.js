@@ -1,6 +1,5 @@
-
-import { isEnterKey, isEscapeKey } from './util.js';
-import { createTemplateList, clearTemplateList } from './thumbnail.js';
+import { isEscapeKey } from './util.js';
+import { clearTemplateList } from './thumbnail.js';
 
 const thumbnailModalElement = document.querySelector('.big-picture');
 const containerBody = document.querySelector('body');
@@ -19,7 +18,7 @@ const onModalEscKeydown = (evt) => {
 function openThumbnailModal() {
   thumbnailModalElement.classList.remove('hidden');
   containerBody.classList.add('modal-open');
-  createTemplateList();
+
   document.addEventListener('keydown', onModalEscKeydown);
 }
 
@@ -27,6 +26,7 @@ function openThumbnailModal() {
 function closeThumbnailModal() {
   thumbnailModalElement.classList.add('hidden');
   clearTemplateList();
+
   document.removeEventListener('keydown', onModalEscKeydown);
 }
 
@@ -37,21 +37,7 @@ for (let i = 0; i < thumbnailModalOpen.length; i++) {
   });
 }
 
-//Обработчик открытия модального окна
-thumbnailModalOpen.addEventListener('keydown', (evt) => {
-  if (isEnterKey(evt)) {
-    openThumbnailModal();
-  }
-});
-
 //Обработчик закрытия модального окна
 thumbnailModalClose.addEventListener('click', () => {
   closeThumbnailModal();
-});
-
-//Обработчик закрытия модального окна по клавише Enter
-thumbnailModalClose.addEventListener('keydown', (evt) => {
-  if (isEnterKey(evt)) {
-    closeThumbnailModal();
-  }
 });

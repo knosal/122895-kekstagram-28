@@ -5,7 +5,6 @@ const templateFragment = document.querySelector('#picture')
   .content
   .querySelector('.picture');
 const createTemplates = getPhotos(); //массив генерируемых фотографий
-//const thumbnailModalElement = document.querySelector('.big-picture__preview');
 
 // Функция отрисовки фотографий в галлереи
 const createTemplateList = () => {
@@ -14,7 +13,6 @@ const createTemplateList = () => {
   createTemplates.forEach(({ url, description, likes, comments }) => {
     const templateElement = templateFragment.cloneNode(true);
     templateElement.querySelector('.picture__img').src = url;
-    templateElement.querySelector('.picture__img').tabIndex = '0';
     templateElement.querySelector('.picture__img').alt = description;
     templateElement.querySelector('.picture__likes').textContent = likes;
     templateElement.querySelector('.picture__comments').textContent = comments.length;
