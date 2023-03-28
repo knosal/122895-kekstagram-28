@@ -1,13 +1,10 @@
-import { getPhotos } from './setup.js';
-
 const thumbnailGalleryElement = document.querySelector('.pictures'); // секция для отображения фотографий
 const templateFragment = document.querySelector('#picture')
   .content
   .querySelector('.picture');
-const createTemplates = getPhotos(); //массив генерируемых фотографий
 
 // Функция отрисовки фотографий в галлереи
-const createTemplateList = () => {
+const createTemplateList = (createTemplates) => {
   const listFragment = document.createDocumentFragment();
 
   createTemplates.forEach(({ url, description, likes, comments }) => {
@@ -21,23 +18,7 @@ const createTemplateList = () => {
 
   thumbnailGalleryElement.append(listFragment);
 };
-/*
-// Функция отрисовки фотографий в модальном окне
-const createTemplateListModal = () => {
-  const listFragmentModal = document.createDocumentFragment();
 
-  createTemplates.forEach(({ url, description, likes, comments }) => {
-    const templateModalElement = templateFragment.cloneNode(true);
-    templateModalElement.querySelector('.picture__img').src = url;
-    templateModalElement.querySelector('.picture__img').alt = description;
-    templateModalElement.querySelector('.picture__likes').textContent = likes;
-    templateModalElement.querySelector('.picture__comments').textContent = comments.length;
-    listFragmentModal.append(templateModalElement);
-  });
-
-  thumbnailModalElement.append(listFragmentModal);
-};
-*/
 // Функция очистки отрисовки фотографий в модальном окне
 const clearTemplateList = () => {
   //imageModalElement.innerHTML = '';
