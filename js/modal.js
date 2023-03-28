@@ -1,10 +1,10 @@
 import { isEscapeKey } from './util.js';
-import { clearTemplateList } from './thumbnail.js';
+import { createTemplateList, clearTemplateList } from './thumbnail.js';
 
-const thumbnailModalElement = document.querySelector('.big-picture');
+const bigPictureElement = document.querySelector('.big-picture');
 const containerBody = document.querySelector('body');
-const thumbnailModalOpen = document.querySelectorAll('.picture');
-const thumbnailModalClose = thumbnailModalElement.querySelector('.big-picture__cancel');
+const picturesContainer = document.querySelector('.pictures');
+const thumbnailModalClose = bigPictureElement.querySelector('.big-picture__cancel');
 
 // Функция закрытия окна при нажатии на Esc
 const onModalEscKeydown = (evt) => {
@@ -15,29 +15,47 @@ const onModalEscKeydown = (evt) => {
 };
 
 // Функция открытия окна при нажатии фото
-function openThumbnailModal() {
-  thumbnailModalElement.classList.remove('hidden');
+const openThumbnailModal = () => {
+  bigPictureElement.classList.remove('hidden');
   containerBody.classList.add('modal-open');
 
   document.addEventListener('keydown', onModalEscKeydown);
-}
+};
+
+const fillData = (pictire) => {
+  bigPictureElement.querySelector('.big-picture__img img').src = pictire.url;
+  openThumbnailModal();
+};
 
 // Функция очистки обрабочтика
 function closeThumbnailModal() {
-  thumbnailModalElement.classList.add('hidden');
+  bigPictureElement.classList.add('hidden');
   clearTemplateList();
 
   document.removeEventListener('keydown', onModalEscKeydown);
 }
 
-//Обработчик открытия модального окна для каждого изображения
-for (let i = 0; i < thumbnailModalOpen.length; i++) {
-  thumbnailModalOpen[i].addEventListener('click', () => {
-    openThumbnailModal();
-  });
-}
+const renderGallery = (pictures) => {
+  picturesContainer.addEventListener('click', (evt) => {
+    const thumbnail = evt.target.closest('[data-thumbnail-id]');
+    if (!thumbnail) {
+      return;
+    }
 
-//Обработчик закрытия модального окна
-thumbnailModalClose.addEventListener('click', () => {
-  closeThumbnailModal();
-});
+    const picture = pictures.find(
+      (item) => item.id === Number(thumbnail.dataset.thumbnailId)
+    );
+
+    fillData(picture);
+  });
+
+  //Обработчик закрытия модального окна
+  thumbnailModalClose.addEventListener('click', () => {
+    closeThumbnailModal();
+  });
+
+  createTemplateList(pictures);
+};
+
+export { renderGallery };
+

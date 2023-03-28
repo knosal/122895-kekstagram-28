@@ -4,19 +4,26 @@ const templateFragment = document.querySelector('#picture')
   .querySelector('.picture');
 
 // Функция отрисовки фотографий в галлереи
-const createTemplateList = (createTemplates) => {
+const createTemplateList = (dataPictures) => {
   const listFragment = document.createDocumentFragment();
 
-  createTemplates.forEach(({ url, description, likes, comments }) => {
+  dataPictures.forEach(({ url, description, likes, comments, id }) => {
     const templateElement = templateFragment.cloneNode(true);
     templateElement.querySelector('.picture__img').src = url;
     templateElement.querySelector('.picture__img').alt = description;
     templateElement.querySelector('.picture__likes').textContent = likes;
     templateElement.querySelector('.picture__comments').textContent = comments.length;
+    templateElement.dataset.thumbnailId = id;
+
     listFragment.append(templateElement);
   });
 
   thumbnailGalleryElement.append(listFragment);
 };
 
-export { createTemplateList };
+// Функция очистки отрисовки фотографий в модальном окне
+const clearTemplateList = () => {
+  //imageModalElement.innerHTML = '';
+};
+
+export { createTemplateList, clearTemplateList };
