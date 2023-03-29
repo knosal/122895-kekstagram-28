@@ -1,5 +1,5 @@
 //Получение уникальных ID в заданном диапазоне
-export const getGeneraRandomId = (min, max) => {
+const getGeneraRandomId = (min, max) => {
   /*
     Math.ceil   - Возвращает наименьшее целое число, большее или равное его числовому аргументу.
     Math.min    - Возвращает меньшее из набора предоставленных числовых выражений.
@@ -15,7 +15,7 @@ export const getGeneraRandomId = (min, max) => {
 };
 
 //Поиск случайного элемента в переданном массиве. (декомпозиция)
-export const getRandomArrayElement = (array) => array[getGeneraRandomId(0, array.length - 1)];
+const getRandomArrayElement = (array) => array[getGeneraRandomId(0, array.length - 1)];
 
 // Получение уникального последовательного значения "номер комментария" (замыкание)
 const getRandomId = () => {
@@ -26,4 +26,13 @@ const getRandomId = () => {
   };
 };
 
-export const createIdComments = getRandomId();
+const createIdComments = getRandomId();
+
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {
+  getGeneraRandomId,
+  getRandomArrayElement,
+  createIdComments,
+  isEscapeKey
+};

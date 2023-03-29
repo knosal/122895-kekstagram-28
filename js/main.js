@@ -1,3 +1,4 @@
 import { getPhotos } from './setup.js';
+import { renderGallery } from './modal.js';
 
-getPhotos();
+renderGallery(getPhotos());
