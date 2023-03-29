@@ -1,4 +1,4 @@
 import { getPhotos } from './setup.js';
-import { createTemplateList } from './thumbnail.js';
+import { renderGallery } from './modal.js';
 
-createTemplateList(getPhotos());
+renderGallery(getPhotos());
