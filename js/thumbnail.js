@@ -21,9 +21,4 @@ const createTemplateList = (dataPictures) => {
   thumbnailGalleryElement.append(listFragment);
 };
 
-// Функция очистки отрисовки фотографий в модальном окне
-const clearTemplateList = () => {
-  //imageModalElement.innerHTML = '';
-};
-
-export { createTemplateList, clearTemplateList };
+export { createTemplateList };
