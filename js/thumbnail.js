@@ -9,6 +9,7 @@ const createTemplateList = (dataPictures) => {
 
   dataPictures.forEach(({ url, description, likes, comments, id }) => {
     const templateElement = templateFragment.cloneNode(true);
+
     templateElement.querySelector('.picture__img').src = url;
     templateElement.querySelector('.picture__img').alt = description;
     templateElement.querySelector('.picture__likes').textContent = likes;
