@@ -12,6 +12,7 @@ const commentItem = commentList.querySelector('.social__comment');
 const commentCount = bigPicturePreview.querySelector('.social__comment-count');
 const commentsLoader = bigPicturePreview.querySelector('.comments-loader');
 
+
 // Функция закрытия окна при нажатии на Esc
 const onModalEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -30,17 +31,6 @@ const openThumbnailModal = () => {
   document.addEventListener('keydown', onModalEscKeydown);
 };
 
-// Функция отрисовки фотографий в модальном окне
-const drawingPhotos = ({ url, description, likes, comments }) => {
-  bigPicturePreview.querySelector('.big-picture__img img').src = url;
-  bigPicturePreview.querySelector('.big-picture__img img').alt = description;
-  bigPicturePreview.querySelector('.likes-count').textContent = likes;
-  bigPicturePreview.querySelector('.comments-count').textContent = comments.length;
-  bigPictureElement.querySelector('.social__caption').textContent = description;
-
-  openThumbnailModal();
-};
-
 // Функция отрисовки комментариев в модальном окне
 const drawingComment = (({ avatar, name, message }) => {
   const comment = commentItem.cloneNode(true);
@@ -50,6 +40,24 @@ const drawingComment = (({ avatar, name, message }) => {
 
   return comment;
 });
+
+// Функция отрисовки фотографий в модальном окне
+const drawingPhotos = ({ url, description, likes, comments }) => {
+  bigPicturePreview.querySelector('.big-picture__img img').src = url;
+  bigPicturePreview.querySelector('.big-picture__img img').alt = description;
+  bigPicturePreview.querySelector('.likes-count').textContent = likes;
+  bigPicturePreview.querySelector('.comments-count').textContent = comments.length;
+  bigPictureElement.querySelector('.social__caption').textContent = description;
+
+  const fragment = document.createDocumentFragment();
+  comments.forEach((comment) => {
+    fragment.appendChild(drawingComment(comment));
+  });
+  commentList.innerHTML = '';
+  commentList.appendChild(fragment);
+
+  openThumbnailModal();
+};
 
 // Функция очистки обрабочтика
 function closeThumbnailModal() {
