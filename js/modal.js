@@ -1,32 +1,16 @@
 import { isEscapeKey } from './util.js';
-import { createTemplateList } from './thumbnail.js';
+import { createTemplateList, picturesContainer } from './thumbnail.js';
 
-const bigPictureElement = document.querySelector('.big-picture'); // секция для отображения фотографий
-const containerBody = document.querySelector('body');
-const picturesContainer = document.querySelector('.pictures');
-const thumbnailModalClose = bigPictureElement.querySelector('.big-picture__cancel');
-const socialCommentCount = document.querySelector('.social__comment-count');
-const commentsLoader = bigPictureElement.querySelector('.comments-loader');
-const socialComments = bigPictureElement.querySelector('.social__comments'); // Список коментариев
+//const COMMENTS_PORTION = 5;
 
-const templateCommentFragment = document.querySelector('#picture')
-  .content
-  .querySelector('.picture');
+const bigPictureElement = document.querySelector('.big-picture');
+const bigPicturePreview = document.querySelector('.big-picture__preview');
+const bigPictureClose = bigPicturePreview.querySelector('.big-picture__cancel');
 
-// Функция отрисовки комментариев в модальном окне фотографии
-const createTemplateCommentList = (dataPictures) => {
-  const listFragment = document.createDocumentFragment();
-
-  dataPictures.forEach(({ comments }) => {
-    const templateElement = templateCommentFragment.cloneNode(true);
-    templateElement.querySelector('.social__picture').src = comments.avatar;
-    templateElement.querySelector('.social__picture').alt = comments.name;
-    templateElement.querySelector('.social__text').textContent = comments.message;
-    listFragment.append(templateElement);
-  });
-
-  socialComments.append(listFragment);
-};
+const commentList = bigPicturePreview.querySelector('.social__comments');
+const commentItem = commentList.querySelector('.social__comment');
+const commentCount = bigPicturePreview.querySelector('.social__comment-count');
+const commentsLoader = bigPicturePreview.querySelector('.comments-loader');
 
 // Функция закрытия окна при нажатии на Esc
 const onModalEscKeydown = (evt) => {
@@ -39,27 +23,38 @@ const onModalEscKeydown = (evt) => {
 // Функция открытия окна при нажатии фото
 const openThumbnailModal = () => {
   bigPictureElement.classList.remove('hidden');
-  socialCommentCount.classList.add('hidden');
+  document.body.classList.add('modal-open');
+  commentCount.classList.add('hidden');
   commentsLoader.classList.add('hidden');
-  containerBody.classList.add('modal-open');
+
   document.addEventListener('keydown', onModalEscKeydown);
 };
 
 // Функция отрисовки фотографий в модальном окне
-const fillData = ({ url, description, likes, comments }) => {
-  bigPictureElement.querySelector('.big-picture__img img').src = url;
-  bigPictureElement.querySelector('.big-picture__img img').alt = description;
-  bigPictureElement.querySelector('.likes-count').textContent = likes;
-  bigPictureElement.querySelector('.comments-count').textContent = comments.length;
+const drawingPhotos = ({ url, description, likes, comments }) => {
+  bigPicturePreview.querySelector('.big-picture__img img').src = url;
+  bigPicturePreview.querySelector('.big-picture__img img').alt = description;
+  bigPicturePreview.querySelector('.likes-count').textContent = likes;
+  bigPicturePreview.querySelector('.comments-count').textContent = comments.length;
   bigPictureElement.querySelector('.social__caption').textContent = description;
 
   openThumbnailModal();
 };
 
+// Функция отрисовки комментариев в модальном окне
+const drawingComment = (({ avatar, name, message }) => {
+  const comment = commentItem.cloneNode(true);
+  comment.querySelector('.social__picture').src = avatar;
+  comment.querySelector('.social__picture').alt = name;
+  comment.querySelector('.social__text').textContent = message;
+
+  return comment;
+});
+
 // Функция очистки обрабочтика
 function closeThumbnailModal() {
   bigPictureElement.classList.add('hidden');
-  containerBody.classList.remove('modal-open');
+  document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onModalEscKeydown);
 }
 
@@ -74,12 +69,11 @@ const renderGallery = (pictures) => {
       (item) => item.id === Number(thumbnail.dataset.thumbnailId)
     );
 
-    fillData(picture);
-    createTemplateCommentList(picture);
+    drawingPhotos(picture);
   });
 
   //Обработчик закрытия модального окна
-  thumbnailModalClose.addEventListener('click', () => {
+  bigPictureClose.addEventListener('click', () => {
     closeThumbnailModal();
   });
 

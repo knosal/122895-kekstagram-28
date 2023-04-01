@@ -1,14 +1,20 @@
-/*--------- ИМПОРТ -----------*/
 import { getRandomArrayElement, getGeneraRandomId, createIdComments } from './util.js';
 
-/*--------- ПЕРЕМЕННЫЕ -----------*/
+//Количество сгенерированных объектов
 const PHOTOS_OBJECTS_COUNT = 25;
+
+//Количество лайков
 const LIKES_MIN_VALUE = 15;
 const LIKES_MAX_VALUE = 200;
+
+//Количество миниатюр
 const AVATARS_MIN_VALUE = 1;
 const AVATARS_MAX_VALUE = 6;
+
+//Количество сгенерированных объектов
 const COMMENTS_VALUE = 10;
 
+//Комментарии
 const MESSAGES_COMMENTS = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -18,6 +24,8 @@ const MESSAGES_COMMENTS = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
   'Имена авторов также должны быть случайными. Набор имён для комментаторов составьте сами. Подставляйте случайное имя в поле name.'
 ];
+
+//Описание к комментарию
 const DESCRIPTIONS_COMMENTS = [
   'Летний чил на юга.',
   'Тестим новую камеру!.',
@@ -27,6 +35,8 @@ const DESCRIPTIONS_COMMENTS = [
   'Цените каждое мгновение!',
   'Супер тачка!!!'
 ];
+
+// Имя автора комментария
 const NAMES_COMMENTS = [
   'Иван',
   'Хуан Себастьян',
@@ -55,7 +65,7 @@ const NAMES_COMMENTS = [
   'Антон',
 ];
 
-/*--------- СОЗДАНИЕ ОБЪЕКТА -----------*/
+// Функция для создания объекта комментариев
 const createComment = () => ({
   id: createIdComments(),
   avatar: `img/avatar-${getGeneraRandomId(AVATARS_MIN_VALUE, AVATARS_MAX_VALUE)}.svg`,
@@ -63,6 +73,7 @@ const createComment = () => ({
   name: getRandomArrayElement(NAMES_COMMENTS),
 });
 
+// Функция для создания описания к фотографиям
 const createPublishedPhoto = (photoId) => ({
   id: photoId,
   url: `photos/${photoId}.jpg`,
@@ -71,9 +82,10 @@ const createPublishedPhoto = (photoId) => ({
   comments: Array.from({ length: getGeneraRandomId(0, COMMENTS_VALUE) }, createComment),
 });
 
-const getPhotos = () =>
+// Функция для создания массива объектов фотографий
+const createPhotos = () =>
   Array.from({ length: PHOTOS_OBJECTS_COUNT }, (_, pictureIndex) =>
     createPublishedPhoto(pictureIndex + 1)
   );
 
-export { getPhotos };
+export { createPhotos };
