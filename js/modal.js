@@ -48,7 +48,7 @@ const drawingPhotos = ({ url, description, likes, comments }) => {
   commentList.innerHTML = '';
   commentList.append(fragment);
 
-  openThumbnailModal();
+  openThumbnailModal({ comments });
 };
 
 // Функция очистки обрабочтика
@@ -109,7 +109,6 @@ function openThumbnailModal(element) {
   bigPictureElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
 
-  drawingPhotos(element);
   commentsArray = element.comments;
   commentsShown = 0;
   renderComments();
