@@ -1,7 +1,7 @@
 import { isEscapeKey } from './util.js';
 import { createTemplateList, picturesContainer } from './thumbnail.js';
 
-//const COMMENTS_PORTION = 5;
+const COMMENTS_PORTION = 5;
 
 const bigPictureElement = document.querySelector('.big-picture');
 const bigPicturePreview = document.querySelector('.big-picture__preview');
@@ -12,6 +12,8 @@ const commentItem = commentList.querySelector('.social__comment');
 const commentCount = bigPicturePreview.querySelector('.social__comment-count');
 const commentsLoader = bigPicturePreview.querySelector('.comments-loader');
 
+let commentsShown = 0; //количество показанных комментариев
+let commentsArray = []; //список коммнтариев
 
 // Функция закрытия окна при нажатии на Esc
 const onModalEscKeydown = (evt) => {
@@ -19,16 +21,6 @@ const onModalEscKeydown = (evt) => {
     evt.preventDefault();
     closeThumbnailModal();
   }
-};
-
-// Функция открытия окна при нажатии фото
-const openThumbnailModal = () => {
-  bigPictureElement.classList.remove('hidden');
-  document.body.classList.add('modal-open');
-  commentCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
-
-  document.addEventListener('keydown', onModalEscKeydown);
 };
 
 // Функция отрисовки комментариев в модальном окне
@@ -41,7 +33,7 @@ const drawingComment = (({ avatar, name, message }) => {
   return comment;
 });
 
-// Функция отрисовки фотографий в модальном окне
+// Функция отрисовки фотографий и комментариев в модальном окне
 const drawingPhotos = ({ url, description, likes, comments }) => {
   bigPicturePreview.querySelector('.big-picture__img img').src = url;
   bigPicturePreview.querySelector('.big-picture__img img').alt = description;
@@ -51,10 +43,10 @@ const drawingPhotos = ({ url, description, likes, comments }) => {
 
   const fragment = document.createDocumentFragment();
   comments.forEach((comment) => {
-    fragment.appendChild(drawingComment(comment));
+    fragment.append(drawingComment(comment));
   });
   commentList.innerHTML = '';
-  commentList.appendChild(fragment);
+  commentList.append(fragment);
 
   openThumbnailModal();
 };
@@ -64,8 +56,10 @@ function closeThumbnailModal() {
   bigPictureElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onModalEscKeydown);
+  commentsShown = 0;
 }
 
+// Функция добавления вспомогательной информации к фотографиям
 const renderGallery = (pictures) => {
   picturesContainer.addEventListener('click', (evt) => {
     const thumbnail = evt.target.closest('[data-thumbnail-id]');
@@ -88,4 +82,44 @@ const renderGallery = (pictures) => {
   createTemplateList(pictures);
 };
 
+// Функция
+const renderComments = () => {
+  //debugger;
+  commentsShown += COMMENTS_PORTION;
+  // если комментариев в массве больше нет
+  if (commentsShown >= commentsArray.length) {
+    commentsLoader.classList.add('hidden');
+    // полное количество комментариев
+    commentsShown = commentsArray.length;
+  } else {
+    commentsLoader.classList.remove('hidden');
+  }
+  const commentsFragment = document.createDocumentFragment();
+  for (let i = 0; i < commentsShown; i++) {
+    const commentElement = drawingComment(commentsArray[i]);
+    commentsFragment.append(commentElement);
+  }
+  commentList.innerHTML = '';
+  commentList.append(commentsFragment);
+  commentCount.innerHTML = `${commentsShown} из <span class="comments-count">${commentsArray.length}</span> комментариев`;
+};
+
+// Функция открытия окна при нажатии фото
+function openThumbnailModal(element) {
+  bigPictureElement.classList.remove('hidden');
+  document.body.classList.add('modal-open');
+
+  drawingPhotos(element);
+  commentsArray = element.comments;
+  commentsShown = 0;
+  renderComments();
+
+  document.addEventListener('keydown', onModalEscKeydown);
+}
+
+commentsLoader.addEventListener('click', renderComments);
+renderComments();
+
 export { renderGallery };
+
+
