@@ -1,6 +1,6 @@
 import { isEscapeKey } from './util.js';
 
-const HASHTAG_PATTERN = /^#[a-zа-яё0-9]{1,19}( #[a-zа-яё0-9]{1,19}){0,4}$/i;
+const HASHTAG_PATTERN = /^#[a-zа-яё0-9]{1,19}$/i;
 const ERROR_HASHTAG_MESSAGE = 'Проверте правильность ввода символов';
 const ERROR_COMMENTS_MESSAGE = 'Максимальная длина комментария 140 символов';
 const MAX_COUNT_HASTAGS = 5;
@@ -39,9 +39,9 @@ const deleteEscKeydownForTextField = () => {
 
 //Создание экземплятор валидатора и передача в него элемента формы
 const pristine = new Pristine(updateForm, {
-  classTo: 'img-upload__field-wrapper',
-  errorTextParent: 'img-upload__field-wrapper',
-  errorTextClass: 'img-upload__field-wrapper__error',
+  classTo: 'img-upload__field-wrapper', // Элемент на который будут добавляется служебные классы
+  errorTextParent: 'img-upload__field-wrapper', // Класс для элемента в котором будет вывод ошибки
+  errorTextClass: 'img-upload__field-wrapper__error', // текст ошибки
 });
 
 //Функция открытия окна при нажатии фото
@@ -49,18 +49,20 @@ const openFormOverlay = () => {
   overlayForm.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onModalEscKeydown);
+
   deleteEscKeydownForHashField();
   deleteEscKeydownForTextField();
 };
 
 //Функция закрытия фото
 const closeFormOverlay = () => {
-  updateForm.reset();
-  //resetScale();
-  //resetEffects();
-  pristine.reset();
+  updateForm.reset(); //сбрасываем данные формы
+  //resetScale(); //сбрасываем масштаб
+  //resetEffects(); //сбрасываем эффекты
+  pristine.reset(); //сбрасываем показ ошибок
   overlayForm.classList.add('hidden');
   document.body.classList.remove('modal-open');
+
   document.removeEventListener('keydown', onModalEscKeydown);
 };
 
@@ -74,10 +76,10 @@ function onModalEscKeydown(evt) {
 
 /*----- ВАЛИДАЦИЯ -----*/
 
-//Валидация других требований к хэштегу
+//Валидация требований к хэштегу в соответствии регулярному выражению
 const isValidTag = (tag) => HASHTAG_PATTERN.test(tag);
 
-//Валидация хэштегов
+//Валидация количества хэштегов
 const validateTagsLength = (tags) => tags.length <= MAX_COUNT_HASTAGS;
 
 //Валидация уникальности хэштегов
@@ -91,10 +93,10 @@ const validateTags = (value) => {
   if (value === undefined || value.length === 0) {
     return true;
   }
-  const tags = value
+  const tags = value // Хранилище готовых ХешТегов
     .trim()
     .split(' ')
-    .filter((tag) => tag.trim().length);
+    .filter((tag) => tag.trim().length); //Проверяем чтобы не было лишних пробелов
   return validateTagsLength(tags) && validateUniqueTags(tags) && tags.every(isValidTag);
 };
 
