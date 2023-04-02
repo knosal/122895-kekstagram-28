@@ -33,8 +33,10 @@ const onBiggerButtonClick = () => {
   scaleImage(newValue);
 };
 
+//Функция по сбросу значения шкалы
 const resetScale = () => scaleImage(DEFAULT_SCALE);
+
 scaleButtonSmallerElement.addEventListener('click', onSmallerButtonClick);
 scaleButtonBiggerElement.addEventListener('click', onBiggerButtonClick);
 
-export { resetScale };
+export { resetScale, imageUploadPreview };
