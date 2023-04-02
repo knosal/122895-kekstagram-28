@@ -1,4 +1,6 @@
 import { isEscapeKey } from './util.js';
+import { resetScale } from './scale.js';
+//import { resetEffects } from './effects.js';
 
 const HASHTAG_PATTERN = /^#[a-zа-яё0-9]{1,19}$/i;
 const ERROR_HASHTAG_MESSAGE = 'Проверте правильность ввода символов';
@@ -57,8 +59,8 @@ const openFormOverlay = () => {
 //Функция закрытия фото
 const closeFormOverlay = () => {
   updateForm.reset(); //сбрасываем данные формы
-  //resetScale(); //сбрасываем масштаб
-  //resetEffects(); //сбрасываем эффекты
+  resetScale(); //сбрасываем масштаб
+  resetEffects(); //сбрасываем эффекты
   pristine.reset(); //сбрасываем показ ошибок
   overlayForm.classList.add('hidden');
   document.body.classList.remove('modal-open');
