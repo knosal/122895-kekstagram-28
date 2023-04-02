@@ -88,14 +88,14 @@ const validateUniqueTags = (tags) => {
   return new Set(lowerCaseTags).size === lowerCaseTags.length;
 };
 
-//
+//Валидация
 const validateTags = (value) => {
   if (value === undefined || value.length === 0) {
     return true;
   }
   const tags = value // Хранилище готовых ХешТегов
-    .trim()
-    .split(' ')
+    .trim() //удаляет пробелы и с начала и с конца
+    .split(' ') //разделяет строку и возвращает массив из полученных подстрок
     .filter((tag) => tag.trim().length); //Проверяем чтобы не было лишних пробелов
   return validateTagsLength(tags) && validateUniqueTags(tags) && tags.every(isValidTag);
 };
@@ -117,7 +117,6 @@ pristine.addValidator(
   ERROR_COMMENTS_MESSAGE
 );
 
-//
 const onFormSubmit = (evt) => {
   evt.preventDefault();
   pristine.validate();
