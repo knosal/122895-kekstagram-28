@@ -1,6 +1,6 @@
 import { isEscapeKey } from './util.js';
 
-const HASH_TAG = /^#[a-zа-яё0-9]{1,19}$/i;
+const HASHTAG_PATTERN = /^#[a-zа-яё0-9]{1,19}( #[a-zа-яё0-9]{1,19}){0,4}$/i;
 const ERROR_HASHTAG_MESSAGE = 'Проверте правильность ввода символов';
 const ERROR_COMMENTS_MESSAGE = 'Максимальная длина комментария 140 символов';
 const MAX_COUNT_HASTAGS = 5;
@@ -75,7 +75,7 @@ function onModalEscKeydown(evt) {
 /*----- ВАЛИДАЦИЯ -----*/
 
 //Валидация других требований к хэштегу
-const isValidTag = (tag) => HASH_TAG.test(tag);
+const isValidTag = (tag) => HASHTAG_PATTERN.test(tag);
 
 //Валидация хэштегов
 const validateTagsLength = (tags) => tags.length <= MAX_COUNT_HASTAGS;
