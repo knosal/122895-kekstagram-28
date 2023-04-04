@@ -15,7 +15,6 @@ const deleteEscKeydownForHashField = () => {
   hashtagField.addEventListener('focus', () => {
     document.removeEventListener('keydown', onModalEscKeydown);
   });
-
   hashtagField.addEventListener('blur', () => {
     document.addEventListener('keydown', onModalEscKeydown);
   });
@@ -26,7 +25,6 @@ const deleteEscKeydownForTextField = () => {
   commentField.addEventListener('focus', () => {
     document.removeEventListener('keydown', onModalEscKeydown);
   });
-
   commentField.addEventListener('blur', () => {
     document.addEventListener('keydown', onModalEscKeydown);
   });
@@ -49,10 +47,8 @@ const closeFormOverlay = () => {
   updateForm.reset(); //сбрасываем данные формы
   resetScale(); //сбрасываем масштаб
   resetEffects(); //сбрасываем эффекты
-  //pristine.reset(); //сбрасываем показ ошибок
   overlayForm.classList.add('hidden');
   document.body.classList.remove('modal-open');
-
   document.removeEventListener('keydown', onModalEscKeydown);
 };
 
