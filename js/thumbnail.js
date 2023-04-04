@@ -1,4 +1,4 @@
-const thumbnailGalleryElement = document.querySelector('.pictures'); // секция для отображения фотографий
+const picturesContainer = document.querySelector('.pictures');
 const templateFragment = document.querySelector('#picture')
   .content
   .querySelector('.picture');
@@ -19,7 +19,7 @@ const createTemplateList = (dataPictures) => {
     listFragment.append(templateElement);
   });
 
-  thumbnailGalleryElement.append(listFragment);
+  picturesContainer.append(listFragment);
 };
 
-export { createTemplateList };
+export { createTemplateList, picturesContainer };
