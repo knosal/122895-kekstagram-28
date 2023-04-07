@@ -1,6 +1,6 @@
 /*
 import { blockSubmitButton, unblockSubmitButton } from './form.js';
-//import { sendData } from './load.js';
+import { sendData } from './load.js';
 import { showAlert } from './util.js';
 */
 
@@ -74,6 +74,7 @@ pristine.addValidator(
   ERROR_MAX_LENGTH_COMMENTS
 );
 /*
+// Функция 
 const setUserFormSubmit = (onSuccess) => {
   updateForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
