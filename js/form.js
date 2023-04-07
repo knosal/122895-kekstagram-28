@@ -68,7 +68,7 @@ const closeFormOverlay = () => {
   updateForm.reset(); //сбрасываем данные формы
   resetScale(); //сбрасываем масштаб
   resetEffects(); //сбрасываем эффекты
-  //pristineReset.reset(); //сбрасываем показ ошибок
+  pristineReset(); //сбрасываем pristine
   overlayForm.classList.add('hidden');
   document.body.classList.remove('modal-open');
 

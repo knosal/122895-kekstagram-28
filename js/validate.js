@@ -46,26 +46,6 @@ const pristine = new Pristine(updateForm, {
 //Функция по сбросу pristine
 const pristineReset = () => pristine.reset();
 
-/*
-const setUserFormSubmit = (onSuccess) => {
-  updateForm.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-    const isValid = pristine.validate();
-    if (isValid) {
-      blockSubmitButton();
-      sendData(new FormData(evt.target))
-        .then(onSuccess)
-        .catch(
-          (err) => {
-            showAlert(err.message);
-          }
-        )
-        .finally(unblockSubmitButton);
-    }
-  });
-};
-*/
-
 //Описание валидации хэштегов №1
 pristine.addValidator(
   hashtagField, // Элемент валидации
@@ -93,6 +73,26 @@ pristine.addValidator(
   validateCommentsField,
   ERROR_MAX_LENGTH_COMMENTS
 );
+/*
+const setUserFormSubmit = (onSuccess) => {
+  updateForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockSubmitButton();
+      sendData(new FormData(evt.target))
+        .then(onSuccess)
+        .catch(
+          (err) => {
+            showAlert(err.message);
+          }
+        )
+        .finally(unblockSubmitButton);
+    }
+  });
+};
+*/
 
 const onFormSubmit = (evt) => {
   evt.preventDefault();

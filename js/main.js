@@ -16,10 +16,11 @@ import './form.js';
 import './validate.js';
 import './scale.js';
 import './effects.js';
-const PHOTOS_OBJECTS_COUNT = 25;
+
 getData()
   .then((dataPictures) => {
     renderGallery(dataPictures.slice(0, PHOTOS_OBJECTS_COUNT));
   });
+
 setUserFormSubmit(closeFormOverlay);
 */
