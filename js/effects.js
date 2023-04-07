@@ -33,14 +33,13 @@ const effectLevelElement = document.querySelector('.effect-level__value');
 let currentEffect = DEFAULT_EFFECT;
 
 // Функция-проверка на эффект по умолчанию
-const isDefaultEffect = () => currentEffect === DEFAULT_EFFECT;
-/*
+const isDeffaultEffect = () => currentEffect === DEFAULT_EFFECT;
+
 // Функция по скрытию слайдера
 const hideSlider = () => sliderContainer.classList.add('hidden');
 
 // Функция по показу слайдера
 const showSlider = () => sliderContainer.classList.remove('hidden');
-*/
 
 //Функция по обновлению слайдера в зависимости от текущего эффекта
 const updateSlider = () => {
@@ -53,7 +52,12 @@ const updateSlider = () => {
     start: currentEffect.max,
   });
 
-  sliderContainer.classList.toggle('hidden', isDefaultEffect()); // замена двух функций или же использоать if
+  if (isDeffaultEffect()) {
+    hideSlider();
+  } else {
+    showSlider();
+  }
+  // sliderContainer.classList.toggle('hidden', isDefaultEffect()); // замена двух функций или же использоать if
 };
 
 //Обработчик для изменения эффектов
@@ -71,7 +75,7 @@ effectsElement.addEventListener('change', onEffectsChange);
 //Обработчик обновления изображения при изменении значения слайдера
 const onSliderUpdate = () => {
   const sliderValue = sliderElement.noUiSlider.get();
-  if (isDefaultEffect()) {
+  if (isDeffaultEffect()) {
     imageUploadPreview.style.filter = DEFAULT_EFFECT.style;
   } else {
     imageUploadPreview.style.filter = `${currentEffect.style}(${sliderValue}${currentEffect.unit})`;
@@ -96,6 +100,8 @@ window.noUiSlider.create(sliderElement, {
   connect: 'lower',
 });
 
+//Прячем слайдер
+hideSlider();
 sliderElement.noUiSlider.on('update', onSliderUpdate);
 
 export { resetEffects };
