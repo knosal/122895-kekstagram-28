@@ -1,4 +1,4 @@
-import { getRandomArrayElement, getGeneraRandomId, createIdComments } from './util.js';
+/*import { getRandomArrayElement, getGeneraRandomId, createIdComments } from './util.js';
 
 //Количество сгенерированных объектов
 const PHOTOS_OBJECTS_COUNT = 25;
@@ -89,4 +89,4 @@ const createPhotos = () =>
   );
 
 export { createPhotos };
-
+*/

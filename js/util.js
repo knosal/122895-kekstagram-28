@@ -1,5 +1,5 @@
 //Время задержки
-const ALERT_SHOW_TIME = 5000;
+const ALERT_SHOW_TIME = 3000;
 
 //Получение уникальных ID в заданном диапазоне
 const getGeneraRandomId = (min, max) => {
@@ -35,7 +35,7 @@ const createIdComments = getRandomId();
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 //Функция показывает окно при ошибке во время отправки фото
-const showAlert = (message) => {
+const showErorMesage = (message) => {
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = '100';
   alertContainer.style.position = 'absolute';
@@ -59,5 +59,5 @@ export {
   getRandomArrayElement,
   createIdComments,
   isEscapeKey,
-  showAlert
+  showErorMesage
 };

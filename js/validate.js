@@ -1,8 +1,7 @@
-/*
+
 import { blockSubmitButton, unblockSubmitButton } from './form.js';
 import { sendData } from './load.js';
-import { showAlert } from './util.js';
-*/
+import { showErorMesage } from './util.js';
 
 const HASHTAG_PATTERN = /^#[a-zа-яё0-9]{1,19}$/i;
 
@@ -73,8 +72,8 @@ pristine.addValidator(
   validateCommentsField,
   ERROR_MAX_LENGTH_COMMENTS
 );
-/*
-// Функция 
+
+//Функция валидации формы при отправке
 const setUserFormSubmit = (onSuccess) => {
   updateForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -86,20 +85,12 @@ const setUserFormSubmit = (onSuccess) => {
         .then(onSuccess)
         .catch(
           (err) => {
-            showAlert(err.message);
+            showErorMesage(err.message);
           }
         )
         .finally(unblockSubmitButton);
     }
   });
 };
-*/
 
-const onFormSubmit = (evt) => {
-  evt.preventDefault();
-  pristine.validate();
-};
-
-updateForm.addEventListener('submit', onFormSubmit);
-
-export { pristineReset };
+export { pristineReset, setUserFormSubmit };

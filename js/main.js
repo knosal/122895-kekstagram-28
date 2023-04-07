@@ -1,30 +1,16 @@
-import { createPhotos } from './setup.js';
-import { renderGallery } from './modal.js';
-import './form.js';
-import './validate.js';
-import './scale.js';
-import './effects.js';
-
-renderGallery(createPhotos());
-
-/*
-import { closeFormOverlay } from './form'; //Функция закрытия фото
-import { setUserFormSubmit } from './validate'; //
-import { renderGallery } from './modal.js'; // Функция добавления вспомогательной информации к фотографиям
-import { getData } from './load.js'; //
-import { showAlert } from './util.js'; // Функция показывает окно при ошибке во время отправки фото
-import './form.js';
-import './validate.js';
-import './scale.js';
-import './effects.js';
+import { setUserFormSubmit } from './validate.js'; //Функция валидации формы при отправке
+import { closeFormOverlay } from './form.js'; //Функция закрытия фото
+import { showErorMesage } from './util.js'; //Функция показывает окно при ошибке во время отправки фото
+import { renderGallery } from './modal.js'; //Функция добавления вспомогательной информации к фотографиям
+import { getData } from './load.js'; //Функция получения ответа от сервера
 
 getData()
-.then((dataPictures) => {
-  renderPhotos(dataPictures.slice(0, PHOTOS_OBJECTS_COUNT));
-})
-.catch((err) => {
-  showAlert(err.message);
-});
+  .then((dataPictures) => {
+    renderGallery(dataPictures);
+  })
+  .catch((err) => {
+    showErorMesage(err.message);
+  });
 
 setUserFormSubmit(closeFormOverlay);
-*/
+
