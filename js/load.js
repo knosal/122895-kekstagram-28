@@ -21,7 +21,7 @@ const ErrorText = {
 //
 const load = async (route, errorText, method = Method.GET, body = null) => {
   try {
-    const response = await fetch(`${BASE_URL}${route}`, { method, body })
+    const response = await fetch(`${BASE_URL}${route}`, { method, body });
     if (!response.ok) {
       throw new Error();
     }
