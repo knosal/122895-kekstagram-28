@@ -1,67 +1,4 @@
 import { imageUploadPreview } from './scale.js';
-/*
-//Массив объектов с описанием различных эффектов для обработки изображений
-const EFFECTS_FILTER = [
-  { // «Оригинал»
-    name: 'none', //Эффект наложения //или original
-    style: 'none', //Функция фильтрации в свойства style
-    min: 0, //min значение
-    max: 100, //max значение
-    step: 1, //щаг
-    unit: '', //единица измерения
-  },
-  { // «Хром» — filter: grayscale(0..1) с шагом 0.1
-    name: 'chrome',
-    style: 'grayscale',
-    min: 0,
-    max: 1,
-    step: 0.1,
-    unit: '',
-  },
-  { //«Сепия» — filter: sepia(0..1) с шагом 0.1
-    name: 'sepia',
-    style: 'sepia',
-    min: 0,
-    max: 1,
-    step: 0.1,
-    unit: '',
-  },
-  { // «Марвин» — filter: invert(0..100%) с шагом 1%
-    name: 'marvin',
-    style: 'invert',
-    min: 0,
-    max: 100,
-    step: 1,
-    unit: '%',
-  },
-  { //«Фобос» — filter: blur(0..3px) с шагом 0.1px
-    name: 'phobos',
-    style: 'blur',
-    min: 0,
-    max: 3,
-    step: 0.1,
-    unit: 'px',
-  },
-  { //«Зной» — filter: brightness(1..3) с шагом 0.1
-    name: 'heat',
-    style: 'brightness',
-    min: 1,
-    max: 3,
-    step: 0.1,
-    unit: '',
-  }
-];
-*/
-
-// Функция-фабрика для создания объектов эффектов
-const createEffect = (name, style, min, max, step, unit) => ({
-  name, //Эффект наложения //или original
-  style, //Функция фильтрации в свойства style
-  min, //min значение
-  max, //max значение
-  step, //шаг
-  unit, //единица измерения
-});
 
 // Массив объектов с описанием различных эффектов для обработки изображений
 const EFFECTS_FILTER = [
@@ -76,13 +13,24 @@ const EFFECTS_FILTER = [
 const DEFAULT_EFFECTS_VALUE = 100;
 const DEFAULT_EFFECT = EFFECTS_FILTER[0];
 
+// Функция-фабрика для создания объектов эффектов
+function createEffect(name, style, min, max, step, unit) {
+  return {
+    name: name,
+    style: style,
+    min: min,
+    max: max,
+    step: step,
+    unit: unit,
+  };
+}
+
 const sliderContainer = document.querySelector('.img-upload__effect-level');
 const sliderElement = document.querySelector('.effect-level__slider');
 const effectsElement = document.querySelector('.effects');
 const effectLevelElement = document.querySelector('.effect-level__value');
 
 let currentEffect = DEFAULT_EFFECT;
-
 
 // Функция-проверка на эффект по умолчанию
 const isDefaultEffect = () => currentEffect === DEFAULT_EFFECT;
