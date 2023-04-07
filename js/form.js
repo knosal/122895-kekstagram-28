@@ -18,7 +18,7 @@ const hashtagField = updateForm.querySelector('.text__hashtags');
 const commentField = updateForm.querySelector('.text__description');
 
 //Функция удаления обработчика Esc при фокусе на окне хэштега
-const deleteEscKeydownForHashField = () => {
+const deleteEscHashtagField = () => {
   hashtagField.addEventListener('focus', () => {
     document.removeEventListener('keydown', onModalEscKeydown);
   });
@@ -29,7 +29,7 @@ const deleteEscKeydownForHashField = () => {
 };
 
 //Функция удаления обработчика Esc при фокусе на окне комментариев
-const deleteEscKeydownForTextField = () => {
+const deleteEscCommentField = () => {
   commentField.addEventListener('focus', () => {
     document.removeEventListener('keydown', onModalEscKeydown);
   });
@@ -45,8 +45,8 @@ const openFormOverlay = () => {
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onModalEscKeydown);
 
-  deleteEscKeydownForHashField();
-  deleteEscKeydownForTextField();
+  deleteEscHashtagField();
+  deleteEscCommentField();
 };
 
 inputUploadFile.addEventListener('change', openFormOverlay);

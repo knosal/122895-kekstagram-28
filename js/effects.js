@@ -102,6 +102,7 @@ window.noUiSlider.create(sliderElement, {
 
 //Прячем слайдер
 hideSlider();
+
 sliderElement.noUiSlider.on('update', onSliderUpdate);
 
 export { resetEffects };
