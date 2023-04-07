@@ -4,13 +4,12 @@ import { showErorMesage } from './util.js'; //Функция показывае�
 import { renderGallery } from './modal.js'; //Функция добавления вспомогательной информации к фотографиям
 import { getData } from './load.js'; //Функция получения ответа от сервера
 
-getData()
-  .then((dataPictures) => {
-    renderGallery(dataPictures);
-  })
-  .catch((err) => {
-    showErorMesage(err.message);
-  });
+try {
+  const dataPictures = await getData();
+  renderGallery(dataPictures);
+} catch (err) {
+  showErorMesage(err.message);
+}
 
 setUserFormSubmit(closeFormOverlay);
 

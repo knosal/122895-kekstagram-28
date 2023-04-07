@@ -1,5 +1,5 @@
 //Время задержки
-const ALERT_SHOW_TIME = 3000;
+const ALERT_SHOW_TIME = 5000;
 
 //Получение уникальных ID в заданном диапазоне
 const getGeneraRandomId = (min, max) => {
@@ -43,6 +43,8 @@ const showErorMesage = (message) => {
   alertContainer.style.top = '0';
   alertContainer.style.right = '0';
   alertContainer.style.padding = '10px 3px';
+  alertContainer.style.lineHeight = 'normal';
+  alertContainer.style.opacity = '0.8';
   alertContainer.style.fontSize = '30px';
   alertContainer.style.textAlign = 'center';
   alertContainer.style.backgroundColor = 'red';

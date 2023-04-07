@@ -73,22 +73,25 @@ pristine.addValidator(
   ERROR_MAX_LENGTH_COMMENTS
 );
 
+
 //Функция валидации формы при отправке
 const setUserFormSubmit = (onSuccess) => {
-  updateForm.addEventListener('submit', (evt) => {
+  updateForm.addEventListener('submit', async (evt) => {
     evt.preventDefault();
 
     const isValid = pristine.validate();
     if (isValid) {
       blockSubmitButton();
-      sendData(new FormData(evt.target))
-        .then(onSuccess)
-        .catch(
-          (err) => {
-            showErorMesage(err.message);
-          }
-        )
-        .finally(unblockSubmitButton);
+
+      try { //блок обработки ошибок
+        const formData = new FormData(evt.target);
+        await sendData(formData);
+        onSuccess();
+      } catch (err) {
+        showErorMesage(err.message);
+      } finally {
+        unblockSubmitButton();
+      }
     }
   });
 };
