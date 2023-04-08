@@ -1,5 +1,6 @@
 //Время задержки
 const ALERT_SHOW_TIME = 5000;
+const RESENDING_DELAY = 500;
 
 //Получение уникальных ID в заданном диапазоне
 const getGeneraRandomId = (min, max) => {
@@ -57,7 +58,7 @@ const showErorMesage = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-const debounce = (callback, timeoutDelay = 500) => {
+const debounce = (callback, timeoutDelay = RESENDING_DELAY) => {
   // Используем замыкания, чтобы id таймаута у нас навсегда приклеился
   // к возвращаемой функции с setTimeout, тогда мы его сможем перезаписывать
   let timeoutId;

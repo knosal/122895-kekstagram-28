@@ -3,11 +3,13 @@ import { closeFormOverlay } from './form.js'; //Функция закрытия 
 import { showErorMesage } from './util.js'; //Функция показывает окно при ошибке во время отправки фото
 import { renderGallery } from './modal.js'; //Функция добавления вспомогательной информации к фотографиям
 import { getData } from './load.js'; //Функция получения ответа от сервера
+import { debounce } from './util.js'; //
 import './avatar.js';
+
 
 try {
   const dataPictures = await getData();
-  renderGallery(dataPictures);
+  debounce(renderGallery(dataPictures));
 } catch (err) {
   showErorMesage(err.message);
 }
