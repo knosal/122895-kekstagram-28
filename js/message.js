@@ -49,6 +49,7 @@ closeMessage(errorTypeMessage);
 const successTypeMessage = getMessages().success;
 closeMessage(successTypeMessage);
 */
+
 //Функция отображения сообщения об успешном выполнении
 const showSuccessMessage = () => {
   const successMessage = successMessageTemplate.innerHTML; //Меняем содержимое новым
