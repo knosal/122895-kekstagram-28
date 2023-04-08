@@ -1,7 +1,7 @@
 
-import { blockSubmitButton, unblockSubmitButton } from './form.js';
 import { sendData } from './load.js';
-import { showErorMesage } from './util.js';
+import { blockSubmitButton, unblockSubmitButton } from './form.js';
+import { showSuccessMessage, showErrorMessage } from './message.js';
 
 const HASHTAG_PATTERN = /^#[a-zа-яё0-9]{1,19}$/i;
 
@@ -73,7 +73,6 @@ pristine.addValidator(
   ERROR_MAX_LENGTH_COMMENTS
 );
 
-
 //Функция валидации формы при отправке
 const setUserFormSubmit = (onSuccess) => {
   updateForm.addEventListener('submit', async (evt) => {
@@ -87,8 +86,9 @@ const setUserFormSubmit = (onSuccess) => {
         const formData = new FormData(evt.target);
         await sendData(formData);
         onSuccess();
+        showSuccessMessage();
       } catch (err) {
-        showErorMesage(err.message);
+        showErrorMessage(err.message);
       } finally {
         unblockSubmitButton();
       }

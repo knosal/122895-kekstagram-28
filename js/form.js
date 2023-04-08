@@ -2,6 +2,7 @@ import { isEscapeKey } from './util.js';
 import { resetScale } from './scale.js';
 import { resetEffects } from './effects.js';
 import { pristineReset } from './validate.js';
+import { closeMessage } from './message.js';
 
 const SubmitButtonText = {
   IDLE: 'Отправить',
@@ -65,10 +66,11 @@ const unblockSubmitButton = () => {
 
 //Функция закрытия фото
 const closeFormOverlay = () => {
-  updateForm.reset(); //сбрасываем данные формы
   resetScale(); //сбрасываем масштаб
   resetEffects(); //сбрасываем эффекты
   pristineReset(); //сбрасываем pristine
+  updateForm.reset(); //сбрасываем данные формы
+  closeMessage(); //сбрасываем данные модалки сообщения
   overlayForm.classList.add('hidden');
   document.body.classList.remove('modal-open');
 
@@ -77,7 +79,7 @@ const closeFormOverlay = () => {
 
 overlayCloseButtonForm.addEventListener('click', closeFormOverlay);
 
-// Закрываем модалку-редактор по кнопке
+//Функция закрытия модального окна
 function onModalEscKeydown(evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
@@ -89,5 +91,6 @@ export {
   openFormOverlay,
   closeFormOverlay,
   blockSubmitButton,
-  unblockSubmitButton
+  unblockSubmitButton,
+  onModalEscKeydown
 };
