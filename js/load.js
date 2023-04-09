@@ -3,7 +3,7 @@ const BASE_URL = 'https://28.javascript.pages.academy/kekstagram';
 // Путь
 const Route = {
   GET_DATA: '/data',
-  SEND_DATA: '/е',
+  SEND_DATA: '/',
 };
 
 // Методы отправки
