@@ -18,7 +18,7 @@ const ErrorText = {
   SEND_DATA: 'Не удалось отправить форму. Попробуйте ещё раз',
 };
 
-//
+// Асинхронная функция загрузки и обработки данных с сервера
 const load = async (route, errorText, method = Method.GET, body = null) => {
   try {
     const response = await fetch(`${BASE_URL}${route}`, { method, body });

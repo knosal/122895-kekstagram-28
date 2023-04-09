@@ -7,6 +7,7 @@ import { getData } from './load.js'; //Функция получения отв�
 import './filter.js';
 import './avatar.js';
 
+//
 try {
   const dataPictures = await getData();
   debounce(renderGallery(dataPictures));
@@ -14,4 +15,5 @@ try {
   showErorMesage(err.message);
 }
 
+//Закрытие формы при отправке
 setUserFormSubmit(closeFormOverlay);

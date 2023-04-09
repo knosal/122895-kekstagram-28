@@ -1,20 +1,21 @@
-/*import { getRandomArrayElement, getGeneraRandomId, createIdComments } from './util.js';
+/*
+import { getRandomArrayElement, getGeneraRandomId, createIdComments } from './util.js';
 
-//Количество сгенерированных объектов
+// Количество сгенерированных объектов
 const PHOTOS_OBJECTS_COUNT = 25;
 
-//Количество лайков
+// Количество лайков
 const LIKES_MIN_VALUE = 15;
 const LIKES_MAX_VALUE = 200;
 
-//Количество миниатюр
+// Количество миниатюр
 const AVATARS_MIN_VALUE = 1;
 const AVATARS_MAX_VALUE = 6;
 
-//Количество сгенерированных объектов
+// Количество сгенерированных объектов
 const COMMENTS_VALUE = 10;
 
-//Комментарии
+// Комментарии
 const MESSAGES_COMMENTS = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -25,7 +26,7 @@ const MESSAGES_COMMENTS = [
   'Имена авторов также должны быть случайными. Набор имён для комментаторов составьте сами. Подставляйте случайное имя в поле name.'
 ];
 
-//Описание к комментарию
+// Описание к комментарию
 const DESCRIPTIONS_COMMENTS = [
   'Летний чил на юга.',
   'Тестим новую камеру!.',
