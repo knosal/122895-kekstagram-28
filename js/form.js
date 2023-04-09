@@ -2,7 +2,6 @@ import { isEscapeKey } from './util.js';
 import { resetScale } from './scale.js';
 import { resetEffects } from './effects.js';
 import { pristineReset } from './validate.js';
-import { closeMessage } from './message.js';
 
 const SubmitButtonText = {
   IDLE: 'Отправить',
@@ -21,22 +20,22 @@ const commentField = updateForm.querySelector('.text__description');
 //Функция удаления обработчика Esc при фокусе на окне хэштега
 const deleteEscHashtagField = () => {
   hashtagField.addEventListener('focus', () => {
-    document.removeEventListener('keydown', onModalEscKeydown);
+    document.removeEventListener('keydown', onFormEscKeydown);
   });
 
   hashtagField.addEventListener('blur', () => {
-    document.addEventListener('keydown', onModalEscKeydown);
+    document.addEventListener('keydown', onFormEscKeydown);
   });
 };
 
 //Функция удаления обработчика Esc при фокусе на окне комментариев
 const deleteEscCommentField = () => {
   commentField.addEventListener('focus', () => {
-    document.removeEventListener('keydown', onModalEscKeydown);
+    document.removeEventListener('keydown', onFormEscKeydown);
   });
 
   commentField.addEventListener('blur', () => {
-    document.addEventListener('keydown', onModalEscKeydown);
+    document.addEventListener('keydown', onFormEscKeydown);
   });
 };
 
@@ -44,7 +43,7 @@ const deleteEscCommentField = () => {
 const openFormOverlay = () => {
   overlayForm.classList.remove('hidden');
   document.body.classList.add('modal-open');
-  document.addEventListener('keydown', onModalEscKeydown);
+  document.addEventListener('keydown', onFormEscKeydown);
 
   deleteEscHashtagField();
   deleteEscCommentField();
@@ -70,17 +69,16 @@ const closeFormOverlay = () => {
   resetEffects(); //сбрасываем эффекты
   pristineReset(); //сбрасываем pristine
   updateForm.reset(); //сбрасываем данные формы
-  closeMessage(); //сбрасываем данные модалки сообщения
   overlayForm.classList.add('hidden');
   document.body.classList.remove('modal-open');
 
-  document.removeEventListener('keydown', onModalEscKeydown);
+  document.removeEventListener('keydown', onFormEscKeydown);
 };
 
 overlayCloseButtonForm.addEventListener('click', closeFormOverlay);
 
 //Функция закрытия модального окна
-function onModalEscKeydown(evt) {
+function onFormEscKeydown(evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeFormOverlay();
@@ -92,5 +90,5 @@ export {
   closeFormOverlay,
   blockSubmitButton,
   unblockSubmitButton,
-  onModalEscKeydown
+  onFormEscKeydown
 };

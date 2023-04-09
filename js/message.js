@@ -1,4 +1,5 @@
-import { onModalEscKeydown } from './form.js'; //Функция закрытия модального окна
+import { onFormEscKeydown } from './form.js'; //Функция закрытия модального окна
+import { isEscapeKey } from './util.js';
 
 const errorMessageTemplate = document.querySelector('#error');
 const successMessageTemplate = document.querySelector('#success');
@@ -12,43 +13,32 @@ const getMessages = () => {
 
 //Функция закрытия сообщения
 const closeMessage = () => {
-  const message = getMessages();
+  const message = document.querySelector('.message');
   if (message) {
     message.remove();
+  }
+  if (message.classList.contains('error')) {
+    document.addEventListener('keydown', onFormEscKeydown);
   }
 
   document.removeEventListener('click', onClickArbitraryArea);
   document.removeEventListener('keydown', onModalEscKeydown);
 };
 
-/*
-const getMessages = () => document.querySelector('.error, .success');
-
-const closeMessage = () => {
-  const messageType = getMessages();
-  if (messageType) {
-    messageType.remove();
-  }
-
-  document.removeEventListener('click', onClickArbitraryArea);
-  document.removeEventListener('keydown', onModalEscKeydown);
-};*/
-
-//Функция закрытия модального окна сообщения
-function onClickArbitraryArea(evt) {
-  if (!evt.target.closest('.error') || (!evt.target.closest('.success'))) {
+//Функция закрытия модального окна
+function onModalEscKeydown(evt) {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
     closeMessage();
   }
 }
-/*
-// Закрытие сообщения об ошибке
-const errorTypeMessage = getMessages().error;
-closeMessage(errorTypeMessage);
 
-// Закрытие сообщения об успехе
-const successTypeMessage = getMessages().success;
-closeMessage(successTypeMessage);
-*/
+//Функция закрытия модального окна сообщения
+function onClickArbitraryArea(evt) {
+  if (!(evt.target.closest('.message__inner'))) {
+    closeMessage();
+  }
+}
 
 //Функция отображения сообщения об успешном выполнении
 const showSuccessMessage = () => {
@@ -68,8 +58,14 @@ const showErrorMessage = () => {
   const errorButton = document.querySelector('.error__button');
 
   errorButton.addEventListener('click', closeMessage);
+  document.removeEventListener('keydown', onFormEscKeydown);
   document.addEventListener('keydown', onModalEscKeydown);
   document.addEventListener('click', onClickArbitraryArea);
 };
 
-export { getMessages, showSuccessMessage, showErrorMessage, closeMessage };
+export {
+  getMessages,
+  showSuccessMessage,
+  showErrorMessage,
+  closeMessage
+};

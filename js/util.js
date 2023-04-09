@@ -58,6 +58,7 @@ const showErorMesage = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
+//Функция для устранения дребезга (многократного повторения действий "клика")
 const debounce = (callback, timeoutDelay = RESENDING_DELAY) => {
   // Используем замыкания, чтобы id таймаута у нас навсегда приклеился
   // к возвращаемой функции с setTimeout, тогда мы его сможем перезаписывать
