@@ -25,21 +25,6 @@ const closeMessage = () => {
   document.removeEventListener('keydown', onModalEscKeydown);
 };
 
-// Функция закрытия модального окна
-function onModalEscKeydown(evt) {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeMessage();
-  }
-}
-
-// Функция закрытия модального окна сообщения
-function onClickArbitraryArea(evt) {
-  if (!(evt.target.closest('.message__inner'))) {
-    closeMessage();
-  }
-}
-
 // Функция отображения сообщения об успешном выполнении
 const showSuccessMessage = () => {
   const successMessage = successMessageTemplate.innerHTML; //Меняем содержимое новым
@@ -58,10 +43,25 @@ const showErrorMessage = () => {
   const errorButton = document.querySelector('.error__button');
 
   errorButton.addEventListener('click', closeMessage);
-  document.removeEventListener('keydown', onFormEscKeydown);
+  document.removeEventListener('keydown', onFormEscKeydown); // Убираем обработчик с формы, чтобы не закрыть полностью всЁ
   document.addEventListener('keydown', onModalEscKeydown);
   document.addEventListener('click', onClickArbitraryArea);
 };
+
+// Функция закрытия модального окна
+function onModalEscKeydown(evt) {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closeMessage();
+  }
+}
+
+// Функция закрытия модального окна при клике на совбодное пространство
+function onClickArbitraryArea(evt) {
+  if (!(evt.target.closest('.message__inner'))) {
+    closeMessage();
+  }
+}
 
 export {
   getMessages,

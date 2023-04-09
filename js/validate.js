@@ -1,7 +1,7 @@
 
-import { sendData } from './load.js';
 import { blockSubmitButton, unblockSubmitButton } from './form.js';
 import { showSuccessMessage, showErrorMessage } from './message.js';
+import { sendData } from './load.js';
 
 // Регулярные выражения
 const HASHTAG_PATTERN = /^#[a-zа-яё0-9]{1,19}$/i;

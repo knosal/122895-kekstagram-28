@@ -1,8 +1,9 @@
 
-const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+import { imageUploadPreview } from './scale.js'; //картинка, куда мы будем выставлять превью загруженного изображения
+import { inputUploadFile } from './form.js'; //поле ввода, с помощью которого пользователь выбирает изображение
 
-const inputUploadFile = document.querySelector('#upload-file'); //поле ввода, с помощью которого пользователь выбирает изображение
-const imageUploadPreview = document.querySelector('.img-upload__preview img'); //картинка, куда мы будем выставлять превью загруженного изображения
+// Допустимые расширения
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 // Обработчик на поле ввода выбора изображения
 inputUploadFile.addEventListener('change', () => { //случится, когда пользователь выберет изображение

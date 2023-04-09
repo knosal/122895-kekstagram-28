@@ -91,5 +91,6 @@ export {
   closeFormOverlay,
   blockSubmitButton,
   unblockSubmitButton,
-  onFormEscKeydown
+  onFormEscKeydown,
+  inputUploadFile
 };
