@@ -1,4 +1,3 @@
-
 import { blockSubmitButton, unblockSubmitButton } from './form.js';
 import { showSuccessMessage, showErrorMessage } from './message.js';
 import { sendData } from './load.js';
@@ -6,7 +5,7 @@ import { sendData } from './load.js';
 // Регулярные выражения
 const HASHTAG_PATTERN = /^#[a-zа-яё0-9]{1,19}$/i;
 
-// Ошибки
+// ERROR
 const ERROR_LENGTH_HASHTAG = 'Не более 5 Хэштегов';
 const ERROR_DUPLICATE_HASHTAG = 'Хэштеги не должны повторяться';
 const ERROR_INVALID_HASHTAG = 'Хэштеги должны начинаться с #, содержать символы и/или цифры и не более 20 символов';
@@ -25,7 +24,7 @@ const prepareTags = (value) => value.trim().split(' ');
 // Функция по валидации требований к хэштегу в соответствии регулярному выражению
 const isValidTags = (tags) => {
   if (!tags) {
-    return true;
+    return true; // если поле пустое, то считаем его валидным
   } else {
     prepareTags(tags).every((tag) => HASHTAG_PATTERN.test(tag));
   }
