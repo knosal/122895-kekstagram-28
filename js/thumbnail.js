@@ -5,9 +5,12 @@ const templateFragment = document.querySelector('#picture')
 
 // Функция отрисовки фотографий в галлереи
 const createTemplateList = (dataPictures) => {
+  const picturesAllinContainer = picturesContainer.querySelectorAll('.picture');
   const listFragment = document.createDocumentFragment();
 
   dataPictures.forEach(({ url, description, likes, comments, id }) => {
+    picturesAllinContainer.forEach((element) => element.remove()); //Заново отрисовываем все изображения
+
     const templateElement = templateFragment.cloneNode(true);
 
     templateElement.querySelector('.picture__img').src = url;
@@ -19,7 +22,7 @@ const createTemplateList = (dataPictures) => {
     listFragment.append(templateElement);
   });
 
-  picturesContainer.append(listFragment);
+  picturesContainer.append(listFragment); //отрисовка списка
   picturesContainer.classList.remove('hidden');
 };
 
