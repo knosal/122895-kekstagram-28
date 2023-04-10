@@ -13,6 +13,6 @@ inputUploadFile.addEventListener('change', () => { //случится, когд�
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it)); //some возвращает булево значение, было ли совпадение
 
   if (matches) {
-    imageUploadPreview.src = URL.createObjectURL(file); //позволяет сделать ссылку на содержимое, а не ресурс на каком-то адресе.
+    imageUploadPreview.src = URL.createObjectURL(file); //позволяет сделать ссылку на содержимое file.
   }
 });

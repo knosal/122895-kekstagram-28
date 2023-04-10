@@ -23,7 +23,13 @@ const commentField = updateForm.querySelector('.text__description');
 const prepareTags = (value) => value.trim().split(' ');
 
 // Функция по валидации требований к хэштегу в соответствии регулярному выражению
-const isValidTags = (tags) => prepareTags(tags).every((tag) => HASHTAG_PATTERN.test(tag));
+const isValidTags = (tags) => {
+  if (!tags) {
+    return true;
+  } else {
+    prepareTags(tags).every((tag) => HASHTAG_PATTERN.test(tag));
+  }
+};
 
 // Функция по валидации количества хэштегов
 const validateTagsLength = (tags) => prepareTags(tags).length <= MAX_COUNT_HASTAGS;
@@ -87,7 +93,7 @@ const setUserFormSubmit = (onSuccess) => {
       try { //блок обработки ошибок
         const formData = new FormData(evt.target);
         await sendData(formData);
-        onSuccess();
+        onSuccess(); //
         showSuccessMessage();
       } catch (err) {
         showErrorMessage(err.message);

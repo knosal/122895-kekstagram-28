@@ -4,13 +4,6 @@ import { isEscapeKey } from './util.js';
 const errorMessageTemplate = document.querySelector('#error');
 const successMessageTemplate = document.querySelector('#success');
 
-// Функция для определения типа сообщения, которое необходимо закрыть
-const getMessages = () => {
-  const error = document.querySelector('.error');
-  const success = document.querySelector('.success');
-  return { error, success };
-};
-
 // Функция закрытия сообщения
 const closeMessage = () => {
   const message = document.querySelector('.message');
@@ -64,7 +57,6 @@ function onClickArbitraryArea(evt) {
 }
 
 export {
-  getMessages,
   showSuccessMessage,
   showErrorMessage,
   closeMessage

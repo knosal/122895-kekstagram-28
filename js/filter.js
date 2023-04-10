@@ -1,5 +1,4 @@
-/*
-const PICTURE_RANDOM_COUNT = 10; // Количество случайных фотографий
+/*const PICTURE_RANDOM_COUNT = 10; // Количество случайных фотографий
 const UPDATE_FREQUENCY = 0.5; // Частота обновления при сортировке
 
 //Перечисление Фильтров
@@ -22,5 +21,4 @@ const sortPicturesRandom = () => Math.random() - UPDATE_FREQUENCY;
 // Функция сортировки в порядке УБЫВАНИЯ количества комментариев
 const sortComments = (pictureA, pictureB) =>
   pictureB.comments.length - pictureA.comments.length;
-
 */
