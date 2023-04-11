@@ -60,6 +60,7 @@ const oncloseFormClick = () => {
   resetEffects(); //сбрасываем эффекты
   pristineReset(); //сбрасываем pristine
   updateForm.reset(); //сбрасываем данные формы
+
   overlayForm.classList.add('hidden'); //скрываем форму
   document.body.classList.remove('modal-open');
 
