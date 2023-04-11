@@ -5,16 +5,16 @@ const errorMessageTemplate = document.querySelector('#error');
 const successMessageTemplate = document.querySelector('#success');
 
 // Функция закрытия сообщения
-const closeMessage = () => {
+const onCloseMessageClick = () => {
   const message = document.querySelector('.message');
-  if (message) {
+  if (message) { //Если нашли message, удаляем
     message.remove();
   }
   if (message.classList.contains('error')) {
     document.addEventListener('keydown', onFormEscKeydown);
   }
 
-  document.removeEventListener('click', onClickArbitraryArea);
+  document.removeEventListener('click', onArbitraryAreaClick);
   document.removeEventListener('keydown', onModalEscKeydown);
 };
 
@@ -22,42 +22,44 @@ const closeMessage = () => {
 const showSuccessMessage = () => {
   const successMessage = successMessageTemplate.innerHTML; //Меняем содержимое новым
   document.body.insertAdjacentHTML('beforeend', successMessage); //Добавляем сообщение перед body
-  const successButton = document.querySelector('.success__button');
 
-  successButton.addEventListener('click', closeMessage);
+  const successButton = document.querySelector('.success__button');
+  successButton.addEventListener('click', onCloseMessageClick);
+
   document.addEventListener('keydown', onModalEscKeydown);
-  document.addEventListener('click', onClickArbitraryArea);
+  document.addEventListener('click', onArbitraryAreaClick);
 };
 
 // Функция отображения сообщения об ошибке
 const showErrorMessage = () => {
   const errorMessage = errorMessageTemplate.innerHTML;
-  document.body.insertAdjacentHTML('beforeend', errorMessage);
-  const errorButton = document.querySelector('.error__button');
+  document.body.insertAdjacentHTML('beforeend', errorMessage); //добавляет содержимое переменной errorMessage в конец элемента <body>
 
-  errorButton.addEventListener('click', closeMessage);
+  const errorButton = document.querySelector('.error__button');
+  errorButton.addEventListener('click', onCloseMessageClick);
+
   document.removeEventListener('keydown', onFormEscKeydown); // Убираем обработчик с формы, чтобы не закрыть полностью всЁ
   document.addEventListener('keydown', onModalEscKeydown);
-  document.addEventListener('click', onClickArbitraryArea);
+  document.addEventListener('click', onArbitraryAreaClick);
 };
 
 // Функция закрытия модального окна
 function onModalEscKeydown(evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closeMessage();
+    onCloseMessageClick();
   }
 }
 
 // Функция закрытия модального окна при клике на совбодное пространство
-function onClickArbitraryArea(evt) {
+function onArbitraryAreaClick(evt) {
   if (!(evt.target.closest('.message__inner'))) {
-    closeMessage();
+    onCloseMessageClick();
   }
 }
 
 export {
   showSuccessMessage,
   showErrorMessage,
-  closeMessage
+  onCloseMessageClick
 };

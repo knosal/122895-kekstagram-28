@@ -21,7 +21,7 @@ let commentsArray = []; //список коммнтариев
 const onModalEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closeThumbnailModal();
+    onModalClose();
   }
 };
 
@@ -36,19 +36,22 @@ const drawingComment = (({ avatar, name, message }) => {
 });
 
 // Функция отрисовки необходимого количества комментариев
-const renderComments = () => {
+const onRenderCommentsClick = () => {
   commentsShown += COMMENTS_PORTION;
+
   if (commentsShown >= commentsArray.length) { // если комментариев в массве больше нет
     commentsLoader.classList.add('hidden');
     commentsShown = commentsArray.length; // полное количество комментариев
   } else {
     commentsLoader.classList.remove('hidden');
   }
+
   const commentsFragment = document.createDocumentFragment();
   for (let i = 0; i < commentsShown; i++) {
     const commentElement = drawingComment(commentsArray[i]);
     commentsFragment.append(commentElement);
   }
+
   commentList.innerHTML = '';
   commentList.append(commentsFragment);
   commentCount.innerHTML = `${commentsShown} из <span class="comments-count">${commentsArray.length}</span> комментариев`;
@@ -65,13 +68,13 @@ const drawingPhotos = ({ url, description, likes, comments }) => {
   commentsArray = comments;
 
   if (comments.length > 0) {
-    renderComments();
+    onRenderCommentsClick();
   } else {
     commentList.innerHTML = '';
     commentCount.innerHTML = 'Нет <span class="comments-count"></span> комментариев';
     commentsLoader.classList.add('hidden');
   }
-  openThumbnailModal();
+  onModalOpen();
 };
 
 // Функция добавления вспомогательной информации к фотографиям
@@ -82,36 +85,33 @@ const renderGallery = (pictures) => {
       return;
     }
     evt.preventDefault();
-    const picture = pictures.find( // иначе, ведем поиск по объекту по которому произошел клик
-      (item) => item.id === Number(thumbnail.dataset.thumbnailId)
-    );
+    // иначе, ведем поиск по объекту по которому произошел клик
+    const picture = pictures.find((item) => item.id === Number(thumbnail.dataset.thumbnailId));
 
     drawingPhotos(picture);
   });
 
   // Функция обработчик закрытия модального окна
-  bigPictureClose.addEventListener('click', () => {
-    closeThumbnailModal();
-  });
+  bigPictureClose.addEventListener('click', () => onModalClose());
 
   createTemplateList(pictures);
 };
 
 // Функция открытия окна при нажатии фото
-function openThumbnailModal() {
+function onModalOpen() {
   bigPictureElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onModalEscKeydown);
 }
 
 // Функция очистки обрабочтика
-function closeThumbnailModal() {
+function onModalClose() {
   bigPictureElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onModalEscKeydown);
   commentsShown = 0;
 }
 
-commentsLoader.addEventListener('click', renderComments);
+commentsLoader.addEventListener('click', onRenderCommentsClick);
 
 export { renderGallery };

@@ -46,9 +46,9 @@ const setFilterPictures = (callback) => {
 };
 
 // Функция для активации фильтров
-const activatingFilters = (dataictures, callback) => {
+const activatingFilters = (dataPictures, callback) => {
   filterElement.classList.remove('img-filters--inactive');
-  picturesArray = [...dataictures];
+  picturesArray = [...dataPictures];
   setFilterPictures(callback);
 };
 

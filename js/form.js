@@ -20,28 +20,18 @@ const commentField = updateForm.querySelector('.text__description');
 
 // Функция удаления обработчика Esc при фокусе на окне хэштега
 const deleteEscHashtagField = () => {
-  hashtagField.addEventListener('focus', () => {
-    document.removeEventListener('keydown', onFormEscKeydown);
-  });
-
-  hashtagField.addEventListener('blur', () => {
-    document.addEventListener('keydown', onFormEscKeydown);
-  });
+  hashtagField.addEventListener('focus', () => document.removeEventListener('keydown', onFormEscKeydown));
+  hashtagField.addEventListener('blur', () => document.addEventListener('keydown', onFormEscKeydown));
 };
 
 // Функция удаления обработчика Esc при фокусе на окне комментариев
 const deleteEscCommentField = () => {
-  commentField.addEventListener('focus', () => {
-    document.removeEventListener('keydown', onFormEscKeydown);
-  });
-
-  commentField.addEventListener('blur', () => {
-    document.addEventListener('keydown', onFormEscKeydown);
-  });
+  commentField.addEventListener('focus', () => document.removeEventListener('keydown', onFormEscKeydown));
+  commentField.addEventListener('blur', () => document.addEventListener('keydown', onFormEscKeydown));
 };
 
 // Функция открытия окна при нажатии фото
-const openFormOverlay = () => {
+const onOpenFormChange = () => {
   overlayForm.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onFormEscKeydown);
@@ -50,7 +40,7 @@ const openFormOverlay = () => {
   deleteEscCommentField();
 };
 
-inputUploadFile.addEventListener('change', openFormOverlay);
+inputUploadFile.addEventListener('change', onOpenFormChange);
 
 // Функция блокировки кнопки "Опубликовать" перед отправкой запроса на сервер
 const blockSubmitButton = () => {
@@ -65,30 +55,30 @@ const unblockSubmitButton = () => {
 };
 
 // Функция закрытия фото
-const closeFormOverlay = () => {
+const oncloseFormClick = () => {
   resetScale(); //сбрасываем масштаб
   resetEffects(); //сбрасываем эффекты
   pristineReset(); //сбрасываем pristine
   updateForm.reset(); //сбрасываем данные формы
-  overlayForm.classList.add('hidden');
+  overlayForm.classList.add('hidden'); //скрываем форму
   document.body.classList.remove('modal-open');
 
   document.removeEventListener('keydown', onFormEscKeydown);
 };
 
-overlayCloseButtonForm.addEventListener('click', closeFormOverlay);
+overlayCloseButtonForm.addEventListener('click', oncloseFormClick);
 
 // Функция закрытия модального окна
 function onFormEscKeydown(evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closeFormOverlay();
+    oncloseFormClick();
   }
 }
 
 export {
-  openFormOverlay,
-  closeFormOverlay,
+  onOpenFormChange,
+  oncloseFormClick,
   blockSubmitButton,
   unblockSubmitButton,
   onFormEscKeydown,
