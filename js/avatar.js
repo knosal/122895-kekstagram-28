@@ -5,6 +5,8 @@ import { inputUploadFile } from './form.js'; //поле ввода, с помо�
 // Допустимые расширения
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
+const effectsPreviews = document.querySelectorAll('.effects__preview');
+
 // Обработчик на поле ввода выбора изображения
 inputUploadFile.addEventListener('change', () => { //случится, когда пользователь выберет изображение
   const fileList = inputUploadFile.files[0]; //список файлов (первый и единственный элемент)
@@ -14,5 +16,8 @@ inputUploadFile.addEventListener('change', () => { //случится, когд�
 
   if (matches) {
     imageUploadPreview.src = URL.createObjectURL(fileList); //позволяет сделать ссылку на содержимое file.
+    for (let i = 0; i < effectsPreviews.length; i++) {
+      effectsPreviews[i].style.backgroundImage = `url(${URL.createObjectURL(fileList)})`;
+    }
   }
 });
