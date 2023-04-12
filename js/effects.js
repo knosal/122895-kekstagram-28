@@ -1,7 +1,7 @@
 import { imageUploadPreview } from './scale.js';
 
 // Массив объектов с описанием различных эффектов для обработки изображений
-const EFFECTS_FILTER = [
+const EFFECTS = [
   createEffect('none', 'none', 0, 100, 1, ''),
   createEffect('chrome', 'grayscale', 0, 1, 0.1, ''),
   createEffect('sepia', 'sepia', 0, 1, 0.1, ''),
@@ -11,7 +11,7 @@ const EFFECTS_FILTER = [
 ];
 
 const DEFAULT_EFFECTS_VALUE = 100; // Значение слайдера по умолчанию
-const DEFAULT_EFFECT = EFFECTS_FILTER[0]; // Эффект по умолчанию
+const DEFAULT_EFFECT = EFFECTS[0]; // Эффект по умолчанию
 
 // Функция-фабрика для создания объектов эффектов
 function createEffect(name, style, min, max, step, unit) {
@@ -64,7 +64,7 @@ const onEffectsChange = (evt) => { //Когда пользователь выб�
   if (!evt.target.classList.contains('effects__radio')) {
     return;
   }
-  currentEffect = EFFECTS_FILTER.find((effect) => effect.name === evt.target.value);
+  currentEffect = EFFECTS.find((effect) => effect.name === evt.target.value);
   imageUploadPreview.className = `effects__preview--${currentEffect.name}`;
   updateSlider(); // Слайдер обновляется в соответствии с новым эффектом.
 };
