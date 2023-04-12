@@ -16,16 +16,16 @@ let currentFilter = Filters.DEFAULT;
 let picturesArray = [];
 
 // Функция для обновления рандомного списка фотографий
-const sortPicturesRandom = () => Math.random() - UPDATE_FREQUENCY;
+const getsortPicturesRandom = () => Math.random() - UPDATE_FREQUENCY;
 
 // Функция сортировки в порядке УБЫВАНИЯ количества комментариев
 const sortComments = (pictureA, pictureB) =>
   pictureB.comments.length - pictureA.comments.length;
 
-// Объект Фильтр: функция фильтрации
+// Словарь Фильтр: функция фильтрации
 const filterFunctions = {
   [Filters.DEFAULT]: () => [...picturesArray],
-  [Filters.RANDOM]: () => [...picturesArray].sort(sortPicturesRandom).slice(0, PICTURE_RANDOM_COUNT),
+  [Filters.RANDOM]: () => [...picturesArray].sort(getsortPicturesRandom).slice(0, PICTURE_RANDOM_COUNT),
   [Filters.DISCUSSED]: () => [...picturesArray].sort(sortComments)
 };
 // Функция вызова сортировки для тукущего значения фильтра
@@ -46,9 +46,9 @@ const setFilterPictures = (callback) => {
 };
 
 // Функция для активации фильтров
-const activatingFilters = (dataictures, callback) => {
+const activatingFilters = (dataPictures, callback) => {
   filterElement.classList.remove('img-filters--inactive');
-  picturesArray = [...dataictures];
+  picturesArray = [...dataPictures];
   setFilterPictures(callback);
 };
 

@@ -57,7 +57,6 @@ const updateSlider = () => {
   } else {
     showSlider();
   }
-  // sliderContainer.classList.toggle('hidden', isDefaultEffect()); // замена двух функций или же использоать if
 };
 
 // Обработчик для изменения эффектов
@@ -102,6 +101,7 @@ window.noUiSlider.create(sliderElement, {
 
 // Прячем слайдер
 hideSlider();
+
 sliderElement.noUiSlider.on('update', onSliderUpdate);
 
 export { resetEffects };
