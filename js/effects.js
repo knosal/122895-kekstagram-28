@@ -1,17 +1,17 @@
 import { imageUploadPreview } from './scale.js';
 
 // Массив объектов с описанием различных эффектов для обработки изображений
-const EFFECTS = [
-  createEffect('none', 'none', 0, 100, 1, ''),
-  createEffect('chrome', 'grayscale', 0, 1, 0.1, ''),
-  createEffect('sepia', 'sepia', 0, 1, 0.1, ''),
-  createEffect('marvin', 'invert', 0, 100, 1, '%'),
-  createEffect('phobos', 'blur', 0, 3, 0.1, 'px'),
-  createEffect('heat', 'brightness', 1, 3, 0.1, ''),
-];
+const EFFECTS = {
+  none: createEffect('none', 'none', 0, 100, 1, ''),
+  chrome: createEffect('chrome', 'grayscale', 0, 1, 0.1, ''),
+  sepia: createEffect('sepia', 'sepia', 0, 1, 0.1, ''),
+  marvin: createEffect('marvin', 'invert', 0, 100, 1, '%'),
+  phobos: createEffect('phobos', 'blur', 0, 3, 0.1, 'px'),
+  heat: createEffect('heat', 'brightness', 1, 3, 0.1, ''),
+};
 
 const DEFAULT_EFFECTS_VALUE = 100; // Значение слайдера по умолчанию
-const DEFAULT_EFFECT = EFFECTS[0]; // Эффект по умолчанию
+const DEFAULT_EFFECT = EFFECTS.none; // Эффект по умолчанию
 
 // Функция-фабрика для создания объектов эффектов
 function createEffect(name, style, min, max, step, unit) {
@@ -64,7 +64,7 @@ const onEffectsChange = (evt) => { //Когда пользователь выб�
   if (!evt.target.classList.contains('effects__radio')) {
     return;
   }
-  currentEffect = EFFECTS.find((effect) => effect.name === evt.target.value);
+  currentEffect = EFFECTS[evt.target.value]; //текущий элемент на котором произошло событие
   imageUploadPreview.className = `effects__preview--${currentEffect.name}`;
   updateSlider(); // Слайдер обновляется в соответствии с новым эффектом.
 };
