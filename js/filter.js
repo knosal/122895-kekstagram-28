@@ -34,8 +34,14 @@ const getFilterPictures = () => filterFunctions[currentFilter](picturesArray);
 // Функция добавляет обработчик клика на кнопки фильтра и при клике на кнопку изменяет текущий фильтр на выбранный
 const setFilterPictures = (callback) => {
   filtersForm.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('img-filters__button--active')) {
+      return;
+    }
+
     filterFormButtons.forEach((item) => {
-      item.classList.remove('img-filters__button--active'); //удаляет класс  у всех кнопок фильтра
+      if (item !== evt.target) {
+        item.classList.remove('img-filters__button--active'); //удаляет класс  у всех кнопок фильтра
+      }
     });
 
     evt.target.classList.add('img-filters__button--active'); // доюавляет класс выбранной кнопке
