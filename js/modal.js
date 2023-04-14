@@ -37,6 +37,7 @@ const drawingComment = (({ avatar, name, message }) => {
 
 // Функция отрисовки необходимого количества комментариев
 const onRenderCommentsClick = () => {
+  commentsShown = 0;
   commentsShown += COMMENTS_PORTION;
   if (commentsShown >= commentsArray.length) { // если комментариев в массве больше нет
     commentsLoader.classList.add('hidden');
