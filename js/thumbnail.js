@@ -28,6 +28,7 @@ const renderThumbnail = (dataThumbnail) => {
   thumbnailContainer.classList.remove('hidden');
 };
 
+// Функция активации сборки
 const createTemplateList = (dataThumbnail) => {
   redrawingThumbnail();
   const templateElements = dataThumbnail.map((picture) => createThumbnail(picture));

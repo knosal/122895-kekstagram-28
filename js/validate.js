@@ -26,7 +26,7 @@ const isValidTags = (tags) => {
   if (!tags) {
     return true; // если поле пустое, то считаем его валидным
   } else {
-    prepareTags(tags).every((tag) => HASHTAG_PATTERN.test(tag));
+    return prepareTags(tags).every((tag) => HASHTAG_PATTERN.test(tag));
   }
 };
 
@@ -59,21 +59,22 @@ pristine.addValidator(
   ERROR_INVALID_HASHTAG //Сообщение об ошибке
 );
 
-// Описание валидации хэштегов №2 (Количество)
+
+// Описание валидации хэштегов №2 (Количество) +
 pristine.addValidator(
   hashtagField,
   validateTagsLength,
   ERROR_LENGTH_HASHTAG
 );
 
-// Описание валидации хэштегов №3 (Уникальность)
+// Описание валидации хэштегов №3 (Уникальность) +
 pristine.addValidator(
   hashtagField,
   validateUniqueTags,
   ERROR_DUPLICATE_HASHTAG
 );
 
-// Описание валидации комментариев (Максимальная длина)
+// Описание валидации комментариев (Максимальная длина) +
 pristine.addValidator(
   commentField,
   validateCommentsField,
