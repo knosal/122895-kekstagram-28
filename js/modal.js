@@ -7,12 +7,6 @@ const picturesContainer = document.querySelector('.pictures');
 const bigPictureElement = document.querySelector('.big-picture');
 const bigPicturePreview = document.querySelector('.big-picture__preview');
 const bigPictureClose = bigPicturePreview.querySelector('.big-picture__cancel');
-/*
-const commentForm = document.querySelector('.social__footer');
-const commentField = document.querySelector('.social__footer-text');
-const likesPictureCount = document.querySelector('.picture__likes');
-const likesCount = document.querySelector('.likes-count');
-*/
 const commentList = bigPicturePreview.querySelector('.social__comments');
 const commentItem = commentList.querySelector('.social__comment');
 const commentCount = bigPicturePreview.querySelector('.social__comment-count');
@@ -20,45 +14,6 @@ const commentsLoader = bigPicturePreview.querySelector('.comments-loader');
 
 let commentsShown = 0;
 let commentsArray = [];
-
-/*
-const addComment = () => {
-  let newComment = document.createElement('li');
-  newComment.classList.add('social__comment');
-  newComment.innerHTML = `
-    <img
-      class="social__picture"
-      src="img/avatar-6.svg"
-      alt="Аватар комментатора фотографии"
-      width="35" height="35">
-    <p class="social__text">${commentField.value}</p>
-  `;
-  if (commentField.value.trim() === '') {
-    return;
-  }
-  commentList.append(newComment);
-  commentField.value = '';
-};
-
-commentForm.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  addComment();
-});
-*/
-
-/*
-const drawindLike = () => {
-  const isActive = likesCount.classList.contains('likes-count--active');
-  if (isActive) {
-    likesCount.textContent = Number(likesCount.textContent) - 1;
-  } else {
-    likesCount.textContent = Number(likesCount.textContent) + 1;
-  }
-  likesCount.classList.toggle('likes-count--active');
-};
-
-likesCount.addEventListener('click', drawindLike);
-*/
 
 const onModalEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -93,7 +48,7 @@ const onRenderCommentsClick = () => {
   commentCount.innerHTML = `${commentsShown} из <span class="comments-count">${commentsArray.length}</span> комментариев`;
 };
 
-const drawingPhotos = ({ url, description, likes, comments }) => {
+const drawingBigPhoto = ({ url, description, likes, comments }) => {
   bigPicturePreview.querySelector('.big-picture__img img').src = url;
   bigPicturePreview.querySelector('.big-picture__img img').alt = description;
   bigPicturePreview.querySelector('.likes-count').textContent = likes;
@@ -118,7 +73,7 @@ const renderGallery = (pictures) => {
     }
     evt.preventDefault();
     const picture = pictures.find((item) => item.id === Number(thumbnail.dataset.thumbnailId));
-    drawingPhotos(picture);
+    drawingBigPhoto(picture);
   });
   bigPictureClose.addEventListener('click', () => onModalClose());
   createTemplateList(pictures);
